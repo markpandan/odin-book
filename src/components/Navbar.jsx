@@ -1,5 +1,5 @@
 import ctl from "@netlify/classnames-template-literals";
-import { Moon, Sun } from "react-bootstrap-icons";
+import { Moon, Sun, PersonCircle } from "react-bootstrap-icons";
 import useColorScheme from "../hooks/useColorScheme";
 
 const Navbar = () => {
@@ -8,18 +8,26 @@ const Navbar = () => {
   return (
     <div
       className={ctl(`
-        flex justify-between bg-[var(--secondary-color)] p-4 text-zinc-200 transition-colors
+        flex items-center justify-between bg-[var(--secondary-color)] p-4 transition-colors
         duration-300
         *:cursor-pointer
+        not-dark:shadow-md
+        dark:border-b-1 dark:border-[var(--highlight-color)]
       `)}
     >
-      <h1>Navbar</h1>
-      <button
-        onClick={() => setDarkMode(!darkMode)}
-        className={ctl(`*:size-4`)}
-      >
-        {darkMode ? <Moon /> : <Sun />}
-      </button>
+      <h1 className="text-xl">Postly</h1>
+      <div className="flex items-center gap-4">
+        <button className="rounded-md bg-[var(--accent-color)] px-4 py-1">
+          + Create Post
+        </button>
+        <PersonCircle className="mr-6 size-7" />
+        <button
+          onClick={() => setDarkMode(!darkMode)}
+          className={ctl(`*:size-6`)}
+        >
+          {darkMode ? <Moon /> : <Sun />}
+        </button>
+      </div>
     </div>
   );
 };

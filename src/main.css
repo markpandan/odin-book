@@ -1,19 +1,23 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --primary-color: var(--color-zinc-200);
-  --secondary-color: var(--color-blue-900);
-  --tertiary-color: var(--color-zinc-300);
-  --accent-color: var(--color-blue-400);
+  --secondary-color: var(--color-zinc-100);
+  --tertiary-color: var(--color-zinc-400);
+  --accent-color: var(--color-emerald-400);
+  --highlight-color: var(--color-emerald-700);
 
   color: var(--color-slate-950);
 }
 
 :root.dark {
-  --primary-color: var(--color-slate-900);
-  --secondary-color: var(--color-slate-950);
-  --tertiary-color: var(--color-slate-800);
-  --accent-color: var(--color-blue-800);
+  --primary-color: var(--color-gray-950);
+  --secondary-color: var(--color-gray-900);
+  --tertiary-color: var(--color-gray-400);
+  --accent-color: var(--color-emerald-700);
+  --highlight-color: var(--color-emerald-500);
 
   color: var(--color-zinc-200);
 }
@@ -27,7 +31,7 @@ body {
 }
 
 #root {
-  height: 100vh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
 }

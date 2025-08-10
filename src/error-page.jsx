@@ -1,8 +1,8 @@
 const ErrorPage = () => {
   return (
-    <div className="absolute top-[50%] left-[50%] translate-[-50%]">
+    <div className="absolute top-[50%] left-[50%] translate-[-50%] text-center">
       <h1 className="mb-4 text-5xl">
-        <span className="text-[var(--accent-color)]">404</span> Not Found
+        An <span className="text-[var(--accent-color)]">error</span> occured
       </h1>
       <p className="text-xl italic">
         If this error occurs, contact the{" "}
