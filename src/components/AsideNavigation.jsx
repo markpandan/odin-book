@@ -37,7 +37,7 @@ const AsideNavigation = ({ className }) => {
       <ul
         className={ctl(`
           flex flex-col gap-4
-          *:w-full *:cursor-pointer *:rounded-2xl *:px-2 *:py-2 *:text-xl
+          *:w-full *:cursor-pointer *:rounded-2xl *:text-xl
         `)}
       >
         {navigations.map((value) => (
@@ -50,7 +50,10 @@ const AsideNavigation = ({ className }) => {
             }
             onClick={() => setSelectedIndex(value.index)}
           >
-            <Link to={value.route} className="flex items-center gap-4">
+            <Link
+              to={value.route}
+              className="flex items-center gap-4 px-2 py-2"
+            >
               {value.icon} {value.name}
             </Link>
           </li>

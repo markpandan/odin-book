@@ -9,18 +9,29 @@ import Home from "./pages/home";
 import Logout from "./pages/logout";
 import Messages from "./pages/messages";
 import Profile from "./pages/profile";
-import Root from "./pages/root";
+import HomeRoot from "./pages/home_root";
+import MainRoot from "./pages/main_root";
+import Login from "./pages/login";
+import Signup from "./pages/signup";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root />,
+    element: <HomeRoot />,
     errorElement: <ErrorPage />,
     children: [
       { index: true, element: <Home /> },
       { path: "/profile", element: <Profile /> },
       { path: "/messages", element: <Messages /> },
       { path: "/logout", element: <Logout /> },
+    ],
+  },
+  {
+    element: <MainRoot />,
+    errorElement: <ErrorPage />,
+    children: [
+      { path: "/login", element: <Login /> },
+      { path: "/signup", element: <Signup /> },
     ],
   },
 ]);

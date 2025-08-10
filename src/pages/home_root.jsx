@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar";
 import ctl from "@netlify/classnames-template-literals";
 import AsideNavigation from "../components/AsideNavigation";
 
-const Root = () => {
+const HomeRoot = () => {
   return (
     <>
       <Navbar />
@@ -20,4 +20,4 @@ const Root = () => {
   );
 };
 
-export default Root;
+export default HomeRoot;
