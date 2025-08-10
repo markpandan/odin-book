@@ -1,3 +1,4 @@
+import ctl from "@netlify/classnames-template-literals";
 import { PersonCircle, HandThumbsUp, ChatLeft } from "react-bootstrap-icons";
 
 const PostContainer = () => {
@@ -19,7 +20,15 @@ const PostContainer = () => {
         </p>
       </div>
       <div>
-        <p className="text-sm italic">1.3k likes</p>
+        <div
+          className={ctl(`
+            flex justify-between
+            *:text-sm *:italic
+          `)}
+        >
+          <p>1.3k likes</p>
+          <p>32 comments</p>
+        </div>
         <hr className="my-2 border-[var(--highlight-color)]" />
         <div
           className={`

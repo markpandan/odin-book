@@ -1,30 +1,60 @@
 import ctl from "@netlify/classnames-template-literals";
-import { HouseDoor, People, Person } from "react-bootstrap-icons";
+import { useState } from "react";
+import { HouseDoor, People, ChatDots } from "react-bootstrap-icons";
+import { Link } from "react-router-dom";
 
 const AsideNavigation = ({ className }) => {
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  const selectedStyle = {
+    true: ctl("bg-[var(--accent-color)]"),
+    false: ctl("hover:bg-[var(--secondary-color)]"),
+  };
+
+  const navigations = [
+    {
+      index: 0,
+      name: "Home",
+      route: "/",
+      icon: <HouseDoor className="inline size-6 shrink-0" />,
+    },
+    {
+      index: 1,
+      name: "My Profile",
+      route: "/profile",
+      icon: <People className="inline size-6 shrink-0" />,
+    },
+    {
+      index: 2,
+      name: "Messages",
+      route: "/messages",
+      icon: <ChatDots className="inline size-6 shrink-0" />,
+    },
+  ];
+
   return (
     <div className={className}>
       <ul
         className={ctl(`
           flex flex-col gap-4
-          *:w-full *:cursor-pointer *:rounded-2xl *:px-4 *:py-2 *:text-xl
+          *:w-full *:cursor-pointer *:rounded-2xl *:px-2 *:py-2 *:text-xl
         `)}
       >
-        <li className="bg-[var(--accent-color)]">
-          <a href="" className="flex items-center gap-4">
-            <HouseDoor className="inline size-6 shrink-0" /> Home
-          </a>
-        </li>
-        <li>
-          <a href="" className="flex items-center gap-4">
-            <Person className="inline size-6 shrink-0" /> Profile
-          </a>
-        </li>
-        <li>
-          <a href="" className="flex items-center gap-4">
-            <People className="inline size-6 shrink-0" /> Messages
-          </a>
-        </li>
+        {navigations.map((value) => (
+          <li
+            key={value.index}
+            className={
+              selectedIndex == value.index
+                ? selectedStyle[true]
+                : selectedStyle[false]
+            }
+            onClick={() => setSelectedIndex(value.index)}
+          >
+            <Link to={value.route} className="flex items-center gap-4">
+              {value.icon} {value.name}
+            </Link>
+          </li>
+        ))}
       </ul>
     </div>
   );
