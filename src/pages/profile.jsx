@@ -2,8 +2,10 @@ import ctl from "@netlify/classnames-template-literals";
 import FollowedColumn from "../components/FollowedColumn";
 import { PersonCircle } from "react-bootstrap-icons";
 import PostContainer from "../components/PostContainer";
+import { useOutletContext } from "react-router-dom";
 
 const Profile = () => {
+  const { setIsCommentModalOpen } = useOutletContext();
   return (
     <>
       <div className="w-4/7 border-x-1 border-[var(--highlight-color)] px-0">
@@ -40,12 +42,14 @@ const Profile = () => {
         </div>
         <div className="flex flex-col gap-4 px-4 pt-8">
           <div className="text-2xl">Posts</div>
-          <PostContainer />
-          <PostContainer />
-          <PostContainer />
-          <PostContainer />
-          <PostContainer />
-          <PostContainer />
+          {Array(3)
+            .fill()
+            .map((_, index) => (
+              <PostContainer
+                key={index}
+                onComment={() => setIsCommentModalOpen(true)}
+              />
+            ))}
         </div>
       </div>
       <FollowedColumn width={"w-2/7"} />

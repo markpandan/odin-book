@@ -1,9 +1,14 @@
 import ctl from "@netlify/classnames-template-literals";
 import { PersonCircle, HandThumbsUp, ChatLeft } from "react-bootstrap-icons";
 
-const PostContainer = () => {
+const PostContainer = ({ onLike, onComment }) => {
   return (
-    <div className="flex flex-col gap-6 rounded-xl bg-[var(--secondary-color)] p-4">
+    <div
+      className={ctl(`
+        flex flex-col gap-6 rounded-xl bg-[var(--secondary-color)] p-4
+        not-dark:shadow-md
+      `)}
+    >
       <div className="flex items-center gap-2">
         <PersonCircle className="mr-2 inline size-10 shrink-0" />
         <div>
@@ -36,11 +41,11 @@ const PostContainer = () => {
             *:cursor-pointer *:rounded-xl *:px-4 *:py-2 *:hover:bg-[var(--accent-color)]
           `}
         >
-          <button>
+          <button onClick={onLike}>
             <HandThumbsUp className="mr-3 inline size-4" />
             <p className="inline-block align-middle">Like</p>
           </button>
-          <button>
+          <button onClick={onComment}>
             <ChatLeft className="mr-3 inline size-4" />
             <p className="inline-block align-middle">Comment</p>
           </button>

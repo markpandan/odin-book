@@ -1,6 +1,7 @@
 import ctl from "@netlify/classnames-template-literals";
 import { Moon, Sun, PersonCircle } from "react-bootstrap-icons";
 import useColorScheme from "../hooks/useColorScheme";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const { darkMode, setDarkMode } = useColorScheme();
@@ -8,14 +9,16 @@ const Navbar = () => {
   return (
     <div
       className={ctl(`
-        flex items-center justify-between bg-[var(--secondary-color)] p-4 transition-colors
+        z-10 flex items-center justify-between bg-[var(--secondary-color)] p-4 transition-colors
         duration-300
         *:cursor-pointer
         not-dark:shadow-md
         dark:border-b-1 dark:border-[var(--highlight-color)]
       `)}
     >
-      <h1 className="text-xl">Postly</h1>
+      <Link to={"/"} className="text-xl">
+        Postly
+      </Link>
       <div className="flex items-center gap-4">
         <button className="rounded-md bg-[var(--accent-color)] px-4 py-1">
           + Create Post
