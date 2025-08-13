@@ -2,6 +2,22 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+@theme {
+  --animate-appear-up: slide-in 0.2s ease-in 1 forwards;
+
+  @keyframes slide-in {
+    0% {
+      opacity: 0%;
+      transform: translateY(0);
+    }
+
+    100% {
+      opacity: 100%;
+      transform: translateY(calc(var(--spacing) * 20));
+    }
+  }
+}
+
 :root {
   --primary-color: var(--color-zinc-200);
   --secondary-color: var(--color-zinc-100);
@@ -20,22 +36,6 @@
   --highlight-color: var(--color-emerald-500);
 
   color: var(--color-zinc-200);
-}
-
-@theme {
-  --animate-appear-up: slide-in 0.2s ease-in 1 forwards;
-
-  @keyframes slide-in {
-    0% {
-      opacity: 0%;
-      transform: translate(0, 0);
-    }
-
-    100% {
-      opacity: 100%;
-      transform: translate(0, calc(var(--spacing) * 20));
-    }
-  }
 }
 
 html {
