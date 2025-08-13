@@ -16,27 +16,32 @@ import Messages from "./pages/messages";
 import Profile from "./pages/profile";
 import Settings from "./pages/settings";
 import Signup from "./pages/signup";
+import AlertRoot from "./pages/alert_root";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomeRoot />,
+    element: <AlertRoot />,
     errorElement: <ErrorPage />,
     children: [
-      { index: true, element: <Home /> },
-      { path: "/profile", element: <Profile /> },
-      { path: "/messages", element: <Messages /> },
-      { path: "/logout", element: <Logout /> },
-    ],
-  },
-  {
-    element: <MainRoot />,
-    errorElement: <ErrorPage />,
-    children: [
-      { path: "/login", element: <Login /> },
-      { path: "/signup", element: <Signup /> },
-      { path: "/create", element: <Create /> },
-      { path: "/settings", element: <Settings /> },
+      {
+        element: <HomeRoot />,
+        children: [
+          { index: true, element: <Home /> },
+          { path: "/profile", element: <Profile /> },
+          { path: "/messages", element: <Messages /> },
+          { path: "/logout", element: <Logout /> },
+        ],
+      },
+      {
+        element: <MainRoot />,
+        children: [
+          { path: "/login", element: <Login /> },
+          { path: "/signup", element: <Signup /> },
+          { path: "/create", element: <Create /> },
+          { path: "/settings", element: <Settings /> },
+        ],
+      },
     ],
   },
 ]);
