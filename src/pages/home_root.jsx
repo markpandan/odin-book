@@ -17,7 +17,7 @@ const HomeRoot = () => {
         )}
         <div
           className={ctl(`
-            container mx-auto flex max-w-7xl grow
+            container mx-auto flex max-w-7xl
             *:py-8 *:not-nth-[2]:px-4
           `)}
         >

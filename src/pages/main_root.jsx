@@ -5,7 +5,9 @@ const MainRoot = () => {
   return (
     <>
       <Navbar />
-      <Outlet />
+      <div className="container mx-auto max-w-7xl p-4 text-start">
+        <Outlet />
+      </div>
     </>
   );
 };

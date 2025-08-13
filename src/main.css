@@ -5,7 +5,7 @@
 :root {
   --primary-color: var(--color-zinc-200);
   --secondary-color: var(--color-zinc-100);
-  --tertiary-color: var(--color-zinc-400);
+  --tertiary-color: var(--color-zinc-300);
   --accent-color: var(--color-emerald-400);
   --highlight-color: var(--color-emerald-700);
 
@@ -15,7 +15,7 @@
 :root.dark {
   --primary-color: var(--color-gray-950);
   --secondary-color: var(--color-gray-900);
-  --tertiary-color: var(--color-gray-400);
+  --tertiary-color: var(--color-gray-800);
   --accent-color: var(--color-emerald-700);
   --highlight-color: var(--color-emerald-500);
 

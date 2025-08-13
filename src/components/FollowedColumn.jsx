@@ -9,15 +9,15 @@ const FollowedColumn = ({ width }) => {
           <div className="flex flex-col gap-4">
             <div>
               <PersonCircle className="mr-2 inline size-6" />
-              <p className="inline-block align-middle">Will Doe</p>
+              <span className="inline-block align-middle">Will Doe</span>
             </div>
             <div>
               <PersonCircle className="mr-2 inline size-6" />
-              <p className="inline-block align-middle">Alice Smith</p>
+              <span className="inline-block align-middle">Alice Smith</span>
             </div>
             <div>
               <PersonCircle className="mr-2 inline size-6" />
-              <p className="inline-block align-middle">Ryan Johnson</p>
+              <span className="inline-block align-middle">Ryan Johnson</span>
             </div>
           </div>
         </div>

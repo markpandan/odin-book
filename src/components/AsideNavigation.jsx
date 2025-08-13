@@ -1,6 +1,6 @@
 import ctl from "@netlify/classnames-template-literals";
 import { useState } from "react";
-import { HouseDoor, People, ChatDots } from "react-bootstrap-icons";
+import { HouseDoor, People, ChatDots, Gear } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 
 const AsideNavigation = ({ className }) => {
@@ -29,6 +29,12 @@ const AsideNavigation = ({ className }) => {
       name: "Messages",
       route: "/messages",
       icon: <ChatDots className="inline size-6 shrink-0" />,
+    },
+    {
+      index: 3,
+      name: "Settings",
+      route: "/settings",
+      icon: <Gear className="inline size-6 shrink-0" />,
     },
   ];
 

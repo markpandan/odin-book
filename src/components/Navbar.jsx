@@ -20,13 +20,21 @@ const Navbar = () => {
         Postly
       </Link>
       <div className="flex items-center gap-4">
-        <button className="rounded-md bg-[var(--accent-color)] px-4 py-1">
+        <Link
+          to="/create"
+          className="rounded-md bg-[var(--accent-color)] px-4 py-1"
+        >
           + Create Post
-        </button>
-        <PersonCircle className="mr-6 size-7" />
+        </Link>
+        <Link to="/settings" className="shrink-0">
+          <PersonCircle className="mr-6 size-7" />
+        </Link>
         <button
           onClick={() => setDarkMode(!darkMode)}
-          className={ctl(`*:size-6`)}
+          className={ctl(`
+            shrink-0 cursor-pointer
+            *:size-6
+          `)}
         >
           {darkMode ? <Moon /> : <Sun />}
         </button>

@@ -13,6 +13,8 @@ import HomeRoot from "./pages/home_root";
 import MainRoot from "./pages/main_root";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
+import Create from "./pages/create";
+import Settings from "./pages/settings";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +34,8 @@ const router = createBrowserRouter([
     children: [
       { path: "/login", element: <Login /> },
       { path: "/signup", element: <Signup /> },
+      { path: "/create", element: <Create /> },
+      { path: "/settings", element: <Settings /> },
     ],
   },
 ]);
