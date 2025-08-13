@@ -22,6 +22,22 @@
   color: var(--color-zinc-200);
 }
 
+@theme {
+  --animate-appear-up: slide-in 0.2s ease-in 1 forwards;
+
+  @keyframes slide-in {
+    0% {
+      opacity: 0%;
+      transform: translate(0, 0);
+    }
+
+    100% {
+      opacity: 100%;
+      transform: translate(0, calc(var(--spacing) * 20));
+    }
+  }
+}
+
 html {
   scroll-behavior: smooth;
 }

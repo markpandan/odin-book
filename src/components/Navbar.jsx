@@ -1,7 +1,7 @@
 import ctl from "@netlify/classnames-template-literals";
-import { Moon, Sun, PersonCircle } from "react-bootstrap-icons";
-import useColorScheme from "../hooks/useColorScheme";
+import { Moon, PersonCircle, Sun } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
+import useColorScheme from "../hooks/useColorScheme";
 
 const Navbar = () => {
   const { darkMode, setDarkMode } = useColorScheme();

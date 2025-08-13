@@ -1,10 +1,16 @@
+import ctl from "@netlify/classnames-template-literals";
 import { PersonCircle } from "react-bootstrap-icons";
 
 const FollowedColumn = ({ width }) => {
   return (
     <div className={width}>
       <div>
-        <div className="rounded-xl bg-[var(--secondary-color)] p-4 pb-8 text-xl">
+        <div
+          className={ctl(`
+            rounded-xl bg-[var(--secondary-color)] p-4 pb-8 text-xl
+            not-dark:shadow-md
+          `)}
+        >
           <h2 className="mb-4">Followed</h2>
           <div className="flex flex-col gap-4">
             <div>
