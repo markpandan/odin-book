@@ -13,6 +13,7 @@ const AlertPopup = ({ onClose }) => {
       <div className="flex items-center gap-4">
         <p>An error occured. Please try again.</p>
         <button onClick={onClose} className="cursor-pointer">
+          <span className="sr-only">Close Button</span>
           <XLg className="size-4 shrink-0" />
         </button>
       </div>

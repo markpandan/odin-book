@@ -1,7 +1,7 @@
-import { expect, afterEach } from "vitest";
-import { cleanup, render } from "@testing-library/react";
 import * as matchers from "@testing-library/jest-dom/matchers";
+import { cleanup, render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { afterEach, expect, vi } from "vitest";
 
 expect.extend(matchers);
 
@@ -15,3 +15,17 @@ export const userSetup = (jsx) => {
     ...render(jsx),
   };
 };
+
+export const matchMedia = Object.defineProperty(window, "matchMedia", {
+  writable: true,
+  value: vi.fn().mockImplementation((query) => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: vi.fn(), // Deprecated
+    removeListener: vi.fn(), // Deprecated
+    addEventListener: vi.fn(),
+    removeEventListener: vi.fn(),
+    dispatchEvent: vi.fn(),
+  })),
+});

@@ -36,6 +36,7 @@ const Navbar = () => {
             *:size-6
           `)}
         >
+          <span className="sr-only">Dark Mode Toggler</span>
           {darkMode ? <Moon /> : <Sun />}
         </button>
       </div>

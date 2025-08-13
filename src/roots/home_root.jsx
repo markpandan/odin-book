@@ -4,16 +4,12 @@ import { Outlet } from "react-router-dom";
 import AsideNavigation from "../components/AsideNavigation";
 import CommentModal from "../components/CommentModal";
 import Navbar from "../components/Navbar";
-import useAlert from "../hooks/useAlert";
-import AlertPopup from "../components/AlertPopup";
 
 const HomeRoot = () => {
   const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
-  const { alert, setAlert } = useAlert();
 
   return (
     <>
-      {alert && <AlertPopup onClose={() => setAlert("")} />}
       <Navbar />
       <div className="relative">
         {isCommentModalOpen && (

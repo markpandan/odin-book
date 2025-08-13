@@ -1,6 +1,6 @@
 import { PersonCircle } from "react-bootstrap-icons";
 
-const CommentItem = () => {
+const CommentItem = ({ user, children }) => {
   return (
     <div className="flex w-full">
       <PersonCircle className="mr-4 size-12 shrink-0" />
