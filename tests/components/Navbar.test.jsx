@@ -48,8 +48,9 @@ describe("Navbar component", () => {
       </ColorSchemeProvider>
     );
 
-    expect(screen.getByRole("link", { name: "Log In" })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Sign Up" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: "Get Started" })
+    ).toBeInTheDocument();
   });
 
   it("displays the username and logout link when logged in", () => {
@@ -61,7 +62,9 @@ describe("Navbar component", () => {
       </ColorSchemeProvider>
     );
 
-    expect(screen.getByAltText(user.username)).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: user.username })
+    ).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Log Out" })).toBeInTheDocument();
   });
 });

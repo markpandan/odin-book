@@ -2,6 +2,10 @@ import ctl from "@netlify/classnames-template-literals";
 import { PersonCircle, HandThumbsUp, ChatLeft } from "react-bootstrap-icons";
 
 const PostContainer = ({
+  user,
+  content,
+  likesCount,
+  commentsCount,
   onLike,
   onComment,
   className = ctl(`
@@ -14,17 +18,12 @@ const PostContainer = ({
       <div className="flex items-center gap-2">
         <PersonCircle className="mr-2 inline size-10 shrink-0" />
         <div>
-          <h2>John Smith</h2>
+          <h2>{user}</h2>
           <p className="text-xs opacity-75">2h ago</p>
         </div>
       </div>
       <div>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam
-          obcaecati iusto incidunt fugit a molestiae dolorem fuga expedita?
-          Ullam similique maiores veniam molestias facere quis, non excepturi
-          accusamus quas rem.
-        </p>
+        <p>{content}</p>
       </div>
       <div>
         <div
@@ -33,8 +32,8 @@ const PostContainer = ({
             *:text-sm *:italic
           `)}
         >
-          <p>1.3k likes</p>
-          <p>32 comments</p>
+          <p>{likesCount && `${likesCount} like(s)`}</p>
+          <p>{commentsCount && `${commentsCount} comment(s)`}</p>
         </div>
         <hr className="my-2 border-[var(--highlight-color)]" />
         <div

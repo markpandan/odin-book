@@ -3,14 +3,14 @@ import { Moon, PersonCircle, Sun } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 import useColorScheme from "../hooks/useColorScheme";
 
-const Navbar = () => {
+const Navbar = ({ user = {} }) => {
   const { darkMode, setDarkMode } = useColorScheme();
 
   return (
     <div
       className={ctl(`
-        z-10 flex items-center justify-between bg-[var(--secondary-color)] p-4 transition-colors
-        duration-300
+        sticky top-0 z-10 flex items-center justify-between bg-[var(--secondary-color)] p-4
+        transition-colors duration-300
         *:cursor-pointer
         not-dark:shadow-md
         dark:border-b-1 dark:border-[var(--highlight-color)]
@@ -20,15 +20,30 @@ const Navbar = () => {
         Postly
       </Link>
       <div className="flex items-center gap-4">
-        <Link
-          to="/create"
-          className="rounded-md bg-[var(--accent-color)] px-4 py-1"
-        >
-          + Create Post
-        </Link>
-        <Link to="/settings" className="shrink-0">
-          <PersonCircle className="mr-6 size-7" />
-        </Link>
+        {Object.keys(user).length == 0 ? (
+          <>
+            <Link
+              to="/login"
+              className="mr-6 cursor-pointer rounded-md bg-[var(--accent-color)] px-4 py-1"
+            >
+              Get Started
+            </Link>
+          </>
+        ) : (
+          <>
+            <Link
+              to="/create"
+              className="rounded-md bg-[var(--accent-color)] px-4 py-1"
+            >
+              + Create Post
+            </Link>
+            <Link to="/settings" className="shrink-0">
+              <span className="sr-only">{user.username}</span>
+              <PersonCircle className="mr-6 size-7" />
+            </Link>
+          </>
+        )}
+
         <button
           onClick={() => setDarkMode(!darkMode)}
           className={ctl(`

@@ -2,8 +2,14 @@ import ctl from "@netlify/classnames-template-literals";
 import { PersonCircle, XLg } from "react-bootstrap-icons";
 import PostContainer from "./PostContainer";
 import CommentItem from "./CommentItem";
+import useGetData from "../hooks/useGetData";
+import LoadingText from "./LoadingText";
 
-const CommentModal = ({ onClose }) => {
+const CommentModal = ({ post, onClose }) => {
+  const { data: commentData, loading } = useGetData(
+    `posts/${post.id}/comments`
+  );
+
   return (
     <div
       className={ctl(`
@@ -33,14 +39,27 @@ const CommentModal = ({ onClose }) => {
             not-dark:shadow-md
             dark:border-b-1 dark:border-[var(--primary-color)]
           `)}
+          user={`${post.user.firstname} ${post.user.lastname}`}
+          content={post.description}
+          likesCount={post._count.Likes}
+          commentsCount={post._count.Comments}
         />
 
         <div className="flex flex-col gap-4">
-          <CommentItem />
-          <CommentItem />
-          <CommentItem />
-          <CommentItem />
-          <CommentItem />
+          {loading && (
+            <div className="flex h-50 items-center justify-center">
+              <LoadingText />
+            </div>
+          )}
+
+          {commentData.map((comment, index) => (
+            <CommentItem
+              key={index}
+              user={`${comment.user.firstname} ${comment.user.lastname}`}
+            >
+              {comment.content}
+            </CommentItem>
+          ))}
         </div>
         <form action="" className="border-t-1 border-[var(--primary-color)]">
           <div className="mb-2 flex gap-4">

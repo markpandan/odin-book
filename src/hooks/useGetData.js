@@ -24,6 +24,7 @@ const useGetData = (route, token, options = {}) => {
         });
 
         const jsonData = await response.json();
+
         if (!response.ok) {
           setError(jsonData.message);
         } else {

@@ -16,25 +16,25 @@ const AsideNavigation = ({ className }) => {
       index: 0,
       name: "Home",
       route: "/",
-      icon: <HouseDoor className="inline size-6 shrink-0" />,
+      icon: <HouseDoor className="size-6 shrink-0" />,
     },
     {
       index: 1,
       name: "My Profile",
       route: "/profile",
-      icon: <People className="inline size-6 shrink-0" />,
+      icon: <People className="size-6 shrink-0" />,
     },
     {
       index: 2,
       name: "Messages",
       route: "/messages",
-      icon: <ChatDots className="inline size-6 shrink-0" />,
+      icon: <ChatDots className="size-6 shrink-0" />,
     },
     {
       index: 3,
       name: "Settings",
       route: "/settings",
-      icon: <Gear className="inline size-6 shrink-0" />,
+      icon: <Gear className="size-6 shrink-0" />,
     },
   ];
 

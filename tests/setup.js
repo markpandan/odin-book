@@ -7,7 +7,6 @@ expect.extend(matchers);
 
 afterEach(() => {
   cleanup();
-  vi.clearAllMocks();
 });
 
 export const userSetup = (jsx) => {
