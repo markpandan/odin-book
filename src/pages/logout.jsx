@@ -2,8 +2,6 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import { useEffect } from "react";
 
-import React from "react";
-
 const Logout = () => {
   const { setToken } = useAuth();
   const navigate = useNavigate();

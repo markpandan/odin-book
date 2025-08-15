@@ -1,10 +1,9 @@
 import ctl from "@netlify/classnames-template-literals";
 import { useOutletContext } from "react-router-dom";
 import FollowedColumn from "../components/FollowedColumn";
-import PostContainer from "../components/PostContainer";
-import Spinner from "../components/Spinner";
-import useGetData from "../hooks/useGetData";
 import LoadingText from "../components/LoadingText";
+import PostContainer from "../components/PostContainer";
+import useGetData from "../hooks/useGetData";
 
 const Home = () => {
   const { setCommentModal } = useOutletContext();

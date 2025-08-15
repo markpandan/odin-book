@@ -34,10 +34,10 @@ const Settings = () => {
     setLoading(false);
 
     if (!response.ok) {
-      setAlert(data.message);
+      setAlert({ status: "error", message: data.message });
     } else {
       setToken(data.output.token);
-      setAlert("");
+      setAlert({ status: "success", message: "Account Updated" });
     }
   };
 

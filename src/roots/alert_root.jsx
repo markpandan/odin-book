@@ -10,7 +10,13 @@ const AlertRoot = () => {
 
   return (
     <>
-      {alert && <AlertPopup value={alert} onClose={() => setAlert("")} />}
+      {alert.status && (
+        <AlertPopup
+          status={alert.status || undefined}
+          value={alert.message}
+          onClose={() => setAlert({})}
+        />
+      )}
       <Navbar user={user} />
       <Outlet />
     </>
