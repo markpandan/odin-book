@@ -4,6 +4,7 @@ const InputField = ({
   name,
   value,
   onChange,
+  required = true,
   className,
 }) => {
   return (
@@ -15,6 +16,7 @@ const InputField = ({
         id={name}
         value={value}
         onChange={onChange}
+        required={required}
         className="block w-full rounded-xl border-2 border-[var(--highlight-color)] px-4 py-2"
       />
     </div>

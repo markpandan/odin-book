@@ -70,8 +70,18 @@ const Signup = () => {
           value={inputs.email}
         />
         <div className="flex w-full gap-4">
-          <InputField name={"firstname"} label={"First Name:"} />
-          <InputField name={"lastname"} label={"Last Name:"} />
+          <InputField
+            name={"firstname"}
+            label={"First Name:"}
+            onChange={handleChange}
+            value={inputs.firstname}
+          />
+          <InputField
+            name={"lastname"}
+            label={"Last Name:"}
+            onChange={handleChange}
+            value={inputs.lastname}
+          />
         </div>
         <InputField
           type="password"

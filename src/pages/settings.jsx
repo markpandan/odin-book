@@ -3,13 +3,43 @@ import { ArrowLeft, Pencil, PersonCircle } from "react-bootstrap-icons";
 import { Link, Navigate } from "react-router-dom";
 import InputField from "../components/InputField";
 import useAuth from "../hooks/useAuth";
+import useForm from "../hooks/useForm";
+import { useState } from "react";
+import { fetchPut } from "../utils/fetchUtils";
+import useAlert from "../hooks/useAlert";
+import ButtonWithLoader from "../components/ButtonWithLoader";
 
 const Settings = () => {
-  const { token } = useAuth();
+  const { setAlert } = useAlert();
+  const { user, token, setToken } = useAuth();
+  const { inputs, handleChange } = useForm({
+    username: user.username,
+    firstname: user.firstname,
+    lastname: user.lastname,
+    email: user.email,
+  });
+  const [loading, setLoading] = useState(false);
 
   if (!token) {
     return <Navigate to="/login" />;
   }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    setLoading(true);
+    const response = await fetchPut("users/update", { ...inputs }, token);
+
+    const data = await response.json();
+    setLoading(false);
+
+    if (!response.ok) {
+      setAlert(data.message);
+    } else {
+      setToken(data.output.token);
+      setAlert("");
+    }
+  };
 
   return (
     <>
@@ -18,7 +48,7 @@ const Settings = () => {
         <p className="inline-block align-middle">Return to Home</p>
       </Link>
       <h1 className="mb-4 text-3xl font-semibold">Settings</h1>
-      <form action="" className="relative">
+      <form onSubmit={handleSubmit} className="relative">
         <div className="absolute right-0">
           <PersonCircle className="mx-auto size-16" />
           <button
@@ -30,29 +60,49 @@ const Settings = () => {
             <span>Change Profile</span>
           </button>
         </div>
-        <div className="flex w-1/2 flex-col gap-4">
-          <InputField name={"username"} label={"Username:"} />
+        <div className="mb-4 flex w-1/2 flex-col gap-4">
+          <InputField
+            name={"username"}
+            label={"Username:"}
+            onChange={handleChange}
+            value={inputs.username}
+          />
           <div className="flex justify-between gap-4">
             <InputField
               name={"firstname"}
               label={"First Name:"}
+              onChange={handleChange}
+              value={inputs.firstname}
               className={"grow"}
             />
             <InputField
               name={"lastname"}
               label={"Last Name:"}
+              onChange={handleChange}
+              value={inputs.lastname}
               className={"grow"}
             />
           </div>
-          <InputField name={"email"} label={"Email:"} type="email" />
-          <InputField name={"password"} label={"Password:"} type="password" />
+          <InputField
+            name={"email"}
+            label={"Email:"}
+            type="email"
+            onChange={handleChange}
+            value={inputs.email}
+          />
         </div>
-        <button
+        <ButtonWithLoader
           type="submit"
-          className="mt-4 w-max rounded-2xl bg-[var(--accent-color)] px-4 py-2"
+          isLoading={loading}
+          className={ctl(
+            `
+              flex w-max cursor-pointer items-center gap-4 rounded-xl bg-[var(--accent-color)] px-4
+              py-1
+            `
+          )}
         >
-          Save Changes
-        </button>
+          {loading ? "Saving Changes..." : "Save Changes"}
+        </ButtonWithLoader>
       </form>
     </>
   );
