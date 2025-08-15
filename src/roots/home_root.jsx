@@ -4,13 +4,14 @@ import { Outlet } from "react-router-dom";
 import AsideNavigation from "../components/AsideNavigation";
 import CommentModal from "../components/CommentModal";
 import Navbar from "../components/Navbar";
+import useAuth from "../hooks/useAuth";
 
 const HomeRoot = () => {
   const [commentModal, setCommentModal] = useState({ open: false, post: "" });
+  const { user } = useAuth();
 
   return (
     <>
-      <Navbar />
       <div className="relative h-full">
         {commentModal.open && (
           <CommentModal
@@ -24,8 +25,8 @@ const HomeRoot = () => {
             *:py-8 *:not-nth-[2]:px-4
           `)}
         >
-          <AsideNavigation className={"h-min w-1/7 shrink-0"} />
-          <Outlet context={{ setCommentModal }} />
+          <AsideNavigation user={user} className={"h-min w-1/7 shrink-0"} />
+          <Outlet context={{ user, setCommentModal }} />
         </div>
       </div>
     </>

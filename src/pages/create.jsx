@@ -1,8 +1,15 @@
 import ctl from "@netlify/classnames-template-literals";
 import { ArrowLeft, PersonCircle } from "react-bootstrap-icons";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
 const Create = () => {
+  const { token } = useAuth();
+
+  if (!token) {
+    return <Navigate to="/login" />;
+  }
+
   return (
     <>
       <Link to={"/"} className="mb-4 block text-[var(--highlight-color)]">

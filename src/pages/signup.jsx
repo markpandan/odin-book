@@ -1,6 +1,48 @@
 import ctl from "@netlify/classnames-template-literals";
+import { useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
+import ButtonWithLoader from "../components/ButtonWithLoader";
+import InputField from "../components/InputField";
+import useAlert from "../hooks/useAlert";
+import useAuth from "../hooks/useAuth";
+import useForm from "../hooks/useForm";
+import { fetchPost } from "../utils/fetchUtils";
 
 const Signup = () => {
+  const navigate = useNavigate();
+  const { token } = useAuth();
+  const { setAlert } = useAlert();
+  const { inputs, handleChange } = useForm({
+    username: "",
+    firstname: "",
+    lastname: "",
+    email: "",
+    password: "",
+  });
+
+  const [loading, setLoading] = useState(false);
+
+  if (token) {
+    return <Navigate to="/" />;
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    setLoading(true);
+    const response = await fetchPost("users/signup", { ...inputs });
+
+    const data = await response.json();
+    setLoading(false);
+
+    if (!response.ok) {
+      setAlert(data.message);
+    } else {
+      setAlert("");
+      navigate("/login", { replace: true });
+    }
+  };
+
   return (
     <div
       className={ctl(
@@ -9,43 +51,47 @@ const Signup = () => {
     >
       <h2 className={ctl(`text-3xl font-bold`)}>Signup</h2>
 
-      <form className="m-auto mt-6 flex w-min flex-col gap-4 text-start">
-        <div>
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            className="block rounded-lg border-1 px-4 py-2"
-          />
-        </div>
+      <form
+        onSubmit={handleSubmit}
+        className="m-auto mt-6 flex flex-col gap-4 text-start"
+      >
+        <InputField
+          name={"username"}
+          label={"Username:"}
+          onChange={handleChange}
+          value={inputs.username}
+        />
 
-        <div>
-          <label htmlFor="email">Email</label>
-          <input
-            type="text"
-            id="email"
-            name="email"
-            className="block rounded-lg border-1 px-4 py-2"
-          />
+        <InputField
+          type="email"
+          name={"email"}
+          label={"Email:"}
+          onChange={handleChange}
+          value={inputs.email}
+        />
+        <div className="flex w-full gap-4">
+          <InputField name={"firstname"} label={"First Name:"} />
+          <InputField name={"lastname"} label={"Last Name:"} />
         </div>
-
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            className="block rounded-lg border-1 px-4 py-2"
-          />
-        </div>
-        <button
+        <InputField
+          type="password"
+          name={"password"}
+          label={"Password:"}
+          onChange={handleChange}
+          value={inputs.password}
+        />
+        <ButtonWithLoader
+          type="submit"
+          isLoading={loading}
           className={ctl(
-            `m-auto w-max cursor-pointer rounded-xl bg-[var(--accent-color)] px-4 py-1`
+            `
+              m-auto flex w-max cursor-pointer items-center gap-4 rounded-xl
+              bg-[var(--accent-color)] px-4 py-1
+            `
           )}
         >
-          Sign Up
-        </button>
+          {loading ? "Sigining Up..." : "Sign Up"}
+        </ButtonWithLoader>
       </form>
     </div>
   );

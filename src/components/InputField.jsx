@@ -15,7 +15,7 @@ const InputField = ({
         id={name}
         value={value}
         onChange={onChange}
-        className="block rounded-xl border-2 border-[var(--highlight-color)] px-4 py-2"
+        className="block w-full rounded-xl border-2 border-[var(--highlight-color)] px-4 py-2"
       />
     </div>
   );

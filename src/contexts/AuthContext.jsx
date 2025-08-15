@@ -3,6 +3,7 @@ import { jwtDecode } from "jwt-decode";
 
 const AuthContext = createContext();
 
+// TODO: Place the token variable inside the user object instead for optimizing single responsibility functions
 export const AuthProvider = ({ children }) => {
   const [token, setToken_] = useState(localStorage.getItem("token"));
   const [user, setUser] = useState(token ? jwtDecode(token) : {});

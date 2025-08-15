@@ -1,7 +1,15 @@
 import ctl from "@netlify/classnames-template-literals";
-import { Moon, PersonCircle, Sun } from "react-bootstrap-icons";
+import { Moon, PersonCircle, Person, Sun } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 import useColorScheme from "../hooks/useColorScheme";
+import {
+  Menu,
+  MenuButton,
+  MenuItems,
+  MenuItem,
+  MenuSection,
+  MenuHeading,
+} from "@headlessui/react";
 
 const Navbar = ({ user = {} }) => {
   const { darkMode, setDarkMode } = useColorScheme();
@@ -37,10 +45,51 @@ const Navbar = ({ user = {} }) => {
             >
               + Create Post
             </Link>
-            <Link to="/settings" className="shrink-0">
+            {/* <Link to="/settings" className="shrink-0">
               <span className="sr-only">{user.username}</span>
               <PersonCircle className="mr-6 size-7" />
-            </Link>
+            </Link> */}
+            <Menu as="div" className={ctl(`relative mr-6 flex items-center`)}>
+              <MenuButton as="button" className={"cursor-pointer"}>
+                <span className="sr-only">{user.username}</span>
+                <PersonCircle className="size-7" />
+              </MenuButton>
+              <MenuItems
+                modal={false}
+                className={ctl(`
+                  absolute top-full right-0 mt-2 rounded-lg border-1 border-[var(--highlight-color)]
+                  bg-[var(--secondary-color)] p-4 text-end
+                `)}
+              >
+                <MenuSection
+                  className={ctl(`
+                    *:pr-2 *:pl-4 *:not-first:rounded-lg *:not-first:py-1
+                    *:data-focus:bg-[var(--tertiary-color)]
+                  `)}
+                >
+                  <MenuHeading
+                    className={
+                      "mb-2 w-max border-b-1 border-[var(--primary-color)] py-1"
+                    }
+                  >
+                    <span className="inline-block align-middle">
+                      {user.username}
+                    </span>
+                    <Person className="ml-1 inline-block size-6" />
+                  </MenuHeading>
+                  <MenuItem>
+                    <Link to="/settings" className={ctl(`block`)}>
+                      Settings
+                    </Link>
+                  </MenuItem>
+                  <MenuItem>
+                    <Link to="/logout" className={ctl(`block`)}>
+                      Logout
+                    </Link>
+                  </MenuItem>
+                </MenuSection>
+              </MenuItems>
+            </Menu>
           </>
         )}
 

@@ -1,7 +1,7 @@
 import ctl from "@netlify/classnames-template-literals";
 import { XLg } from "react-bootstrap-icons";
 
-const AlertPopup = ({ onClose }) => {
+const AlertPopup = ({ value, onClose }) => {
   return (
     <div
       className={ctl(`
@@ -11,7 +11,7 @@ const AlertPopup = ({ onClose }) => {
       `)}
     >
       <div className="flex items-center gap-4">
-        <p>An error occured. Please try again.</p>
+        <p>{value}</p>
         <button onClick={onClose} className="cursor-pointer">
           <span className="sr-only">Close Button</span>
           <XLg className="size-4 shrink-0" />
