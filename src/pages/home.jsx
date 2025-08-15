@@ -19,13 +19,14 @@ const Home = () => {
       >
         {loading && <LoadingText />}
 
-        {postData.map((post, index) => (
+        {postData.map((post) => (
           <PostContainer
-            key={index}
+            key={post.id}
             user={`${post.user.firstname} ${post.user.lastname}`}
+            username={post.user.username}
             content={post.description}
-            likesCount={post._count.Likes}
-            commentsCount={post._count.Comments}
+            likesCount={post._count.likes}
+            commentsCount={post._count.comments}
             onComment={() => setCommentModal({ open: true, post })}
           />
         ))}

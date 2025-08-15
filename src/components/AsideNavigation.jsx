@@ -22,7 +22,7 @@ const AsideNavigation = ({ user, className }) => {
     {
       index: 1,
       name: "My Profile",
-      route: "/profile",
+      route: `/profile/@${user.username}`,
       icon: <People className="size-6 shrink-0" />,
       protected: true,
     },

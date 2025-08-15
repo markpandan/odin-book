@@ -38,7 +38,7 @@ const Signup = () => {
     if (!response.ok) {
       setAlert({ status: "error", message: data.message });
     } else {
-      setAlert("");
+      setAlert({});
       navigate("/login", { replace: true });
     }
   };

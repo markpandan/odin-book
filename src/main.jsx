@@ -27,7 +27,9 @@ const router = createBrowserRouter([
         element: <HomeRoot />,
         children: [
           { path: "/", element: <Home /> },
-          { path: "/profile", element: <Profile /> },
+          // Input Required Example: /profile/@john
+          // Profile component will already slice the "@" sign at the start of the string
+          { path: "/profile/:username", element: <Profile /> },
           { path: "/messages", element: <Messages /> },
           { path: "/logout", element: <Logout /> },
         ],

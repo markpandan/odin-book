@@ -1,8 +1,10 @@
 import ctl from "@netlify/classnames-template-literals";
 import { PersonCircle, HandThumbsUp, ChatLeft } from "react-bootstrap-icons";
+import { Link } from "react-router-dom";
 
 const PostContainer = ({
   user,
+  username,
   content,
   likesCount,
   commentsCount,
@@ -18,7 +20,15 @@ const PostContainer = ({
       <div className="flex items-center gap-2">
         <PersonCircle className="mr-2 inline size-10 shrink-0" />
         <div>
-          <h2>{user}</h2>
+          <Link
+            to={`/profile/@${username}`}
+            className={ctl(`
+              underline-offset-2
+              hover:underline
+            `)}
+          >
+            {user}
+          </Link>
           <p className="text-xs opacity-75">2h ago</p>
         </div>
       </div>
