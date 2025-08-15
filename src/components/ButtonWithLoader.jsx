@@ -1,6 +1,7 @@
 import ctl from "@netlify/classnames-template-literals";
 import Spinner from "./Spinner";
 
+// TODO: Fix the layout so that the parent element no longer needs to use flex
 const ButtonWithLoader = ({
   type = "button",
   isLoading,

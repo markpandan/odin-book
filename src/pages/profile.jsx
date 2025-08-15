@@ -103,7 +103,7 @@ const Profile = () => {
                 key={post.id}
                 user={`${userData.firstname} ${userData.lastname}`}
                 username={userData.username}
-                content={post.description}
+                content={post.content}
                 likesCount={post._count.likes}
                 commentsCount={post._count.comments}
                 onComment={() =>

@@ -42,8 +42,8 @@ const PostContainer = ({
             *:text-sm *:italic
           `)}
         >
-          <p>{likesCount && `${likesCount} like(s)`}</p>
-          <p>{commentsCount && `${commentsCount} comment(s)`}</p>
+          <p>{likesCount ? `${likesCount} like(s)` : ""}</p>
+          <p>{commentsCount ? `${commentsCount} comment(s)` : ""}</p>
         </div>
         <hr className="my-2 border-[var(--highlight-color)]" />
         <div

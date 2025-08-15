@@ -1,14 +1,43 @@
 import ctl from "@netlify/classnames-template-literals";
 import { ArrowLeft, PersonCircle } from "react-bootstrap-icons";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import { useState } from "react";
+import { fetchPost } from "../utils/fetchUtils";
+import useAlert from "../hooks/useAlert";
+import ButtonWithLoader from "../components/ButtonWithLoader";
 
 const Create = () => {
-  const { token } = useAuth();
+  const { user, token } = useAuth();
+  const { setAlert } = useAlert();
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [content, setContent] = useState("");
 
   if (!token) {
     return <Navigate to="/login" />;
   }
+
+  const handleContentChange = (e) => {
+    setContent(e.target.value);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    setLoading(true);
+    const response = await fetchPost("posts/create", { content }, token);
+
+    const data = await response.json();
+    setLoading(false);
+
+    if (!response.ok) {
+      setAlert({ status: "error", message: data.message });
+    } else {
+      setAlert({ status: "success", message: "Post successfully created" });
+      navigate("/", { replace: true });
+    }
+  };
 
   return (
     <>
@@ -19,7 +48,8 @@ const Create = () => {
 
       <h1 className="mb-4 text-3xl font-semibold">Create A New Post</h1>
 
-      <div
+      <form
+        onSubmit={handleSubmit}
         className={ctl(`
           rounded-2xl bg-[var(--secondary-color)] p-4 text-end
           not-dark:shadow-md
@@ -27,24 +57,30 @@ const Create = () => {
       >
         <div className="mb-6 flex items-start gap-4">
           <PersonCircle className="size-12 shrink-0" />
-          <label htmlFor="post" className="sr-only">
+          <label htmlFor="content" className="sr-only">
             Post
           </label>
           <textarea
-            name="post"
-            id="post"
-            placeholder="What's on your mind, John Smith?"
+            name="content"
+            id="content"
+            placeholder={`What's on your mind, ${user.firstname} ${user.lastname}?`}
             rows={5}
+            onChange={handleContentChange}
+            value={content}
             className={ctl(`
               grow resize-none rounded-xl border-1 border-[var(--highlight-color)]
               bg-[var(--tertiary-color)] p-4
             `)}
           />
         </div>
-        <button className="cursor-pointer rounded-2xl bg-[var(--accent-color)] px-4 py-2">
-          Post
-        </button>
-      </div>
+        <ButtonWithLoader
+          type="submit"
+          isLoading={loading}
+          className="cursor-pointer rounded-2xl bg-[var(--accent-color)] px-4 py-2"
+        >
+          {loading ? "Posting..." : "Post"}
+        </ButtonWithLoader>
+      </form>
     </>
   );
 };

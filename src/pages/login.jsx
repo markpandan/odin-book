@@ -11,10 +11,7 @@ import InputField from "../components/InputField";
 const Login = () => {
   const { token, setToken } = useAuth();
   const { setAlert } = useAlert();
-  const { inputs, handleChange } = useForm({
-    username: "",
-    password: "",
-  });
+  const { inputs, handleChange } = useForm();
 
   const [loading, setLoading] = useState(false);
 
@@ -49,7 +46,7 @@ const Login = () => {
 
       <form
         onSubmit={handleSubmit}
-        className="m-auto mt-6 mb-6 flex w-full flex-col gap-4 text-start"
+        className="m-auto my-6 flex w-full flex-col gap-4 text-start"
       >
         <InputField
           name={"username"}

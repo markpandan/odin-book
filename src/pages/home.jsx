@@ -24,7 +24,7 @@ const Home = () => {
             key={post.id}
             user={`${post.user.firstname} ${post.user.lastname}`}
             username={post.user.username}
-            content={post.description}
+            content={post.content}
             likesCount={post._count.likes}
             commentsCount={post._count.comments}
             onComment={() => setCommentModal({ open: true, post })}

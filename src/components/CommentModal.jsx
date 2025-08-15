@@ -4,11 +4,50 @@ import PostContainer from "./PostContainer";
 import CommentItem from "./CommentItem";
 import useGetData from "../hooks/useGetData";
 import LoadingText from "./LoadingText";
+import { useState } from "react";
+import useForm from "../hooks/useForm";
+import ButtonWithLoader from "./ButtonWithLoader";
+import { fetchPost } from "../utils/fetchUtils";
+import useAuth from "../hooks/useAuth";
+import useAlert from "../hooks/useAlert";
+import { Link } from "react-router-dom";
 
 const CommentModal = ({ post, onClose }) => {
-  const { data: commentData, loading } = useGetData(
-    `posts/${post.id}/comments`
-  );
+  const { token, user } = useAuth();
+  const { setAlert } = useAlert();
+  const {
+    data: commentData,
+    loading: dataLoading,
+    setLoading: setDataLoading,
+  } = useGetData(`posts/${post.id}/comments`);
+  const { inputs, setInputs, handleChange } = useForm();
+
+  const [submitLoading, setSubmitLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    setSubmitLoading(true);
+    const response = await fetchPost(
+      `posts/${post.id}/comment`,
+      { content: inputs.comment },
+      token
+    );
+
+    const data = await response.json();
+    setSubmitLoading(false);
+
+    if (!response.ok) {
+      setAlert({ status: "error", message: data.message });
+    } else {
+      setAlert({
+        status: "success",
+        message: "Comment successfully submitted",
+      });
+      setDataLoading(true);
+      setInputs({ comment: "" });
+    }
+  };
 
   return (
     <div
@@ -20,7 +59,7 @@ const CommentModal = ({ post, onClose }) => {
     >
       <div
         className={ctl(`
-          m-auto w-max max-w-4xl rounded-2xl bg-[var(--secondary-color)]
+          m-auto w-full max-w-4xl rounded-2xl bg-[var(--secondary-color)]
           *:not-nth-[2]:p-4
           not-dark:shadow-2xl
         `)}
@@ -40,18 +79,29 @@ const CommentModal = ({ post, onClose }) => {
             dark:border-b-1 dark:border-[var(--primary-color)]
           `)}
           user={`${post.user.firstname} ${post.user.lastname}`}
-          content={post.description}
+          content={post.content}
           likesCount={post._count.Likes}
           commentsCount={post._count.Comments}
         />
 
         <div className="flex flex-col gap-4">
-          {loading && (
+          {dataLoading && (
             <div className="flex h-50 items-center justify-center">
               <LoadingText />
             </div>
           )}
-
+          {!dataLoading && commentData.length == 0 && (
+            <div className="flex h-20 items-center justify-center">
+              <p
+                className={ctl(`
+                  rounded-2xl bg-[var(--tertiary-color)] px-4 py-2 italic
+                  not-dark:shadow-md
+                `)}
+              >
+                No comments sent
+              </p>
+            </div>
+          )}
           {commentData.map((comment, index) => (
             <CommentItem
               key={index}
@@ -61,26 +111,60 @@ const CommentModal = ({ post, onClose }) => {
             </CommentItem>
           ))}
         </div>
-        <form action="" className="border-t-1 border-[var(--primary-color)]">
-          <div className="mb-2 flex gap-4">
-            <label htmlFor="comment" className="sr-only">
-              Comment
-            </label>
-            <PersonCircle className="size-12 shrink-0" />
-            <textarea
-              name="comment"
-              id="comment"
-              className={ctl(`
-                w-full resize-none rounded-2xl border-1 border-[var(--accent-color)]
-                bg-[var(--tertiary-color)] p-4
-              `)}
-              placeholder="Write a comment"
-            ></textarea>
+        {Object.keys(user).length == 0 ? (
+          <div className="border-t-1 border-[var(--primary-color)] text-center">
+            <h2 className="mb-4 italic">
+              You need an accout to make a comment
+            </h2>
+            <div className="mx-auto flex justify-center gap-4">
+              <Link
+                to="/login"
+                className="rounded-2xl bg-[var(--accent-color)] px-4 py-1"
+              >
+                Log In
+              </Link>
+              <Link
+                to="/signup"
+                className="rounded-2xl bg-[var(--accent-color)] px-4 py-1"
+              >
+                Sign Up
+              </Link>
+            </div>
           </div>
-          <button className="ml-auto block rounded-2xl bg-[var(--accent-color)] px-4 py-2">
-            Comment
-          </button>
-        </form>
+        ) : (
+          <form
+            onSubmit={handleSubmit}
+            className="border-t-1 border-[var(--primary-color)]"
+          >
+            <div className="mb-2 flex gap-4">
+              <label htmlFor="comment" className="sr-only">
+                Comment
+              </label>
+              <PersonCircle className="size-12 shrink-0" />
+              <textarea
+                name="comment"
+                id="comment"
+                onChange={handleChange}
+                value={inputs.comment}
+                className={ctl(`
+                  w-full resize-none rounded-2xl border-1 border-[var(--accent-color)]
+                  bg-[var(--tertiary-color)] p-4
+                `)}
+                placeholder="Write a comment"
+              ></textarea>
+            </div>
+            <ButtonWithLoader
+              type="submit"
+              isLoading={submitLoading}
+              className={ctl(`
+                ml-auto flex w-max cursor-pointer items-center gap-4 rounded-2xl
+                bg-[var(--accent-color)] px-4 py-2
+              `)}
+            >
+              {submitLoading ? "Commenting..." : "Comment"}
+            </ButtonWithLoader>
+          </form>
+        )}
       </div>
     </div>
   );

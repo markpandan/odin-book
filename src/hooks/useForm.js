@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const useForm = (fields) => {
+const useForm = (fields = {}) => {
   const [inputs, setInputs] = useState({ ...fields });
 
   const handleChange = (e) => {

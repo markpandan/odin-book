@@ -1,6 +1,6 @@
 import ctl from "@netlify/classnames-template-literals";
 import { useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import ButtonWithLoader from "../components/ButtonWithLoader";
 import InputField from "../components/InputField";
 import useAlert from "../hooks/useAlert";
@@ -12,13 +12,7 @@ const Signup = () => {
   const navigate = useNavigate();
   const { token } = useAuth();
   const { setAlert } = useAlert();
-  const { inputs, handleChange } = useForm({
-    username: "",
-    firstname: "",
-    lastname: "",
-    email: "",
-    password: "",
-  });
+  const { inputs, handleChange } = useForm();
 
   const [loading, setLoading] = useState(false);
 
@@ -53,7 +47,7 @@ const Signup = () => {
 
       <form
         onSubmit={handleSubmit}
-        className="m-auto mt-6 flex flex-col gap-4 text-start"
+        className="m-auto my-6 flex flex-col gap-4 text-start"
       >
         <InputField
           name={"username"}
@@ -103,6 +97,14 @@ const Signup = () => {
           {loading ? "Sigining Up..." : "Sign Up"}
         </ButtonWithLoader>
       </form>
+
+      <p>
+        Back to{" "}
+        <Link to={"/login"} className="text-[var(--accent-color)] underline">
+          login
+        </Link>{" "}
+        page
+      </p>
     </div>
   );
 };
