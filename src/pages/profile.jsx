@@ -1,5 +1,5 @@
 import ctl from "@netlify/classnames-template-literals";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { PersonCircle } from "react-bootstrap-icons";
 import { useOutletContext, useParams } from "react-router-dom";
 import FollowedColumn from "../components/FollowedColumn";
@@ -8,18 +8,24 @@ import PostContainer from "../components/PostContainer";
 import useAlert from "../hooks/useAlert";
 import useAuth from "../hooks/useAuth";
 import useGetData from "../hooks/useGetData";
+import { fetchDelete, fetchPost } from "../utils/fetchUtils";
 
 const Profile = () => {
   const { setAlert } = useAlert();
   const { setCommentModal } = useOutletContext();
   const { username } = useParams();
-  const { user: currentUser } = useAuth();
+  const { user: currentUser, token } = useAuth();
+
+  const [followLoading, setFollowLoading] = useState(false);
 
   const {
     data: userData,
-    loading,
+    loading: userLoading,
+    setLoading: setUserLoading,
     error,
-  } = useGetData(`users/${username.slice(1)}/posts`);
+  } = useGetData(
+    `users/${username.slice(1)}/posts?relationTo=${currentUser.id}`
+  );
 
   useEffect(() => {
     if (!error) return;
@@ -31,7 +37,7 @@ const Profile = () => {
     "w-4/7 border-x-1 border-[var(--highlight-color)] px-0"
   );
 
-  if (loading) {
+  if (userLoading) {
     return (
       <>
         <div className={parentClassValues}>
@@ -40,6 +46,41 @@ const Profile = () => {
       </>
     );
   }
+
+  const handleFollow = async (action) => {
+    if (!token) {
+      setAlert({
+        status: "error",
+        message: "You must have an accounut to follow a user",
+      });
+    }
+
+    setFollowLoading(true);
+
+    let response;
+    if (action == "add") {
+      response = await fetchPost(
+        `users/${userData.id}/follow`,
+        undefined,
+        token
+      );
+    } else if (action == "delete") {
+      response = await fetchDelete(
+        `users/${userData.id}/follow/remove`,
+        undefined,
+        token
+      );
+    }
+
+    const data = await response.json();
+    setFollowLoading(false);
+
+    if (!response.ok) setAlert({ status: "error", message: data.message });
+    else {
+      setAlert({ status: "success", message: data.message });
+      setUserLoading(true);
+    }
+  };
 
   return (
     <>
@@ -62,11 +103,26 @@ const Profile = () => {
             >
               Edit Profile
             </button>
-          ) : (
+          ) : userData.followed ? (
             <button
+              disabled={followLoading}
+              onClick={() => handleFollow("delete")}
               className={ctl(`
                 absolute right-5 bottom-[-30%] cursor-pointer rounded-2xl bg-[var(--accent-color)]
                 px-4 py-1
+                disabled:opacity-50
+              `)}
+            >
+              Followed
+            </button>
+          ) : (
+            <button
+              disabled={followLoading}
+              onClick={() => handleFollow("add")}
+              className={ctl(`
+                absolute right-5 bottom-[-30%] cursor-pointer rounded-2xl px-4 py-1 ring-2
+                ring-[var(--accent-color)]
+                disabled:opacity-50
               `)}
             >
               Follow
@@ -78,10 +134,12 @@ const Profile = () => {
             <h2 className="text-2xl">{`${userData.firstname} ${userData.lastname}`}</h2>
             <div className="*:inline">
               <p className="mr-4">
-                32 <span className="opacity-60">Following</span>
+                {userData._count && userData._count.following}{" "}
+                <span className="opacity-60">Following</span>
               </p>
               <p>
-                523 <span className="opacity-60">Followers</span>
+                {userData._count && userData._count.followers}{" "}
+                <span className="opacity-60">Followers</span>
               </p>
             </div>
           </div>
@@ -101,10 +159,12 @@ const Profile = () => {
             userData.posts.map((post) => (
               <PostContainer
                 key={post.id}
+                postId={post.id}
                 user={`${userData.firstname} ${userData.lastname}`}
                 username={userData.username}
                 content={post.content}
                 likesCount={post._count.likes}
+                isLiked={post.liked}
                 commentsCount={post._count.comments}
                 onComment={() =>
                   setCommentModal({

@@ -22,7 +22,7 @@ export const fetchPost = async (route, body, token) => {
       "Content-Type": "application/json",
     },
     mode: "cors",
-    body: JSON.stringify(body),
+    body: body ? JSON.stringify(body) : "",
   });
 };
 
@@ -45,7 +45,7 @@ export const fetchPut = async (route, body, token) => {
       "Content-Type": "application/json",
     },
     mode: "cors",
-    body: JSON.stringify(body),
+    body: body ? JSON.stringify(body) : "",
   });
 };
 
@@ -57,6 +57,6 @@ export const fetchDelete = async (route, body, token) => {
       "Content-Type": "application/json",
     },
     mode: "cors",
-    body: JSON.stringify(body),
+    body: body ? JSON.stringify(body) : "",
   });
 };

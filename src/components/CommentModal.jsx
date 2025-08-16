@@ -1,16 +1,16 @@
 import ctl from "@netlify/classnames-template-literals";
-import { PersonCircle, XLg } from "react-bootstrap-icons";
-import PostContainer from "./PostContainer";
-import CommentItem from "./CommentItem";
-import useGetData from "../hooks/useGetData";
-import LoadingText from "./LoadingText";
 import { useState } from "react";
-import useForm from "../hooks/useForm";
-import ButtonWithLoader from "./ButtonWithLoader";
-import { fetchPost } from "../utils/fetchUtils";
-import useAuth from "../hooks/useAuth";
-import useAlert from "../hooks/useAlert";
+import { PersonCircle, XLg } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
+import useAlert from "../hooks/useAlert";
+import useAuth from "../hooks/useAuth";
+import useForm from "../hooks/useForm";
+import useGetData from "../hooks/useGetData";
+import { fetchPost } from "../utils/fetchUtils";
+import ButtonWithLoader from "./ButtonWithLoader";
+import CommentItem from "./CommentItem";
+import LoadingText from "./LoadingText";
+import PostContainer from "./PostContainer";
 
 const CommentModal = ({ post, onClose }) => {
   const { token, user } = useAuth();

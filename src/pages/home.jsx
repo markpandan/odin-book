@@ -4,11 +4,13 @@ import FollowedColumn from "../components/FollowedColumn";
 import LoadingText from "../components/LoadingText";
 import PostContainer from "../components/PostContainer";
 import useGetData from "../hooks/useGetData";
+import useAuth from "../hooks/useAuth";
 
 const Home = () => {
   const { setCommentModal } = useOutletContext();
+  const { user } = useAuth();
 
-  const { data: postData, loading } = useGetData("posts");
+  const { data: postData, loading } = useGetData(`posts?relationTo=${user.id}`);
 
   return (
     <>
@@ -22,10 +24,12 @@ const Home = () => {
         {postData.map((post) => (
           <PostContainer
             key={post.id}
+            postId={post.id}
             user={`${post.user.firstname} ${post.user.lastname}`}
             username={post.user.username}
             content={post.content}
             likesCount={post._count.likes}
+            isLiked={post.liked}
             commentsCount={post._count.comments}
             onComment={() => setCommentModal({ open: true, post })}
           />
