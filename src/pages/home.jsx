@@ -27,6 +27,7 @@ const Home = () => {
             postId={post.id}
             user={`${post.user.firstname} ${post.user.lastname}`}
             username={post.user.username}
+            profile={post.user.profile_url}
             content={post.content}
             likesCount={post._count.likes}
             isLiked={post.liked}

@@ -88,11 +88,19 @@ const Profile = () => {
         <div className="relative mb-20 h-40 border-b-1 border-[var(--highlight-color)]">
           <div
             className={ctl(`
-              absolute bottom-[-40%] left-8 flex size-30 items-center justify-center rounded-full
-              bg-[var(--secondary-color)]
+              absolute bottom-[-40%] left-8 flex items-center justify-center rounded-full
+              bg-[var(--tertiary-color)]
             `)}
           >
-            <PersonCircle className="size-25" />
+            {userData.profile_url ? (
+              <img
+                src={userData.profile_url}
+                alt="profile"
+                className="size-25 object-fill"
+              />
+            ) : (
+              <PersonCircle className="size-25" />
+            )}
           </div>
           {userData.id == currentUser.id ? (
             <button
@@ -162,6 +170,7 @@ const Profile = () => {
                 postId={post.id}
                 user={`${userData.firstname} ${userData.lastname}`}
                 username={userData.username}
+                profile={userData.profile_url}
                 content={post.content}
                 likesCount={post._count.likes}
                 isLiked={post.liked}

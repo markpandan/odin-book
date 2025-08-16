@@ -15,14 +15,14 @@ const PostContainer = ({
   postId,
   user,
   username,
+  profile,
   content,
   likesCount,
   isLiked,
   commentsCount,
-  // onLike,
   onComment,
   className = ctl(`
-    flex flex-col gap-6 rounded-xl bg-[var(--secondary-color)] p-4
+    flex flex-col gap-4 rounded-xl bg-[var(--secondary-color)] p-4
     not-dark:shadow-md
   `),
 }) => {
@@ -71,7 +71,16 @@ const PostContainer = ({
   return (
     <div className={className}>
       <div className="flex items-center gap-2">
-        <PersonCircle className="mr-2 inline size-10 shrink-0" />
+        {profile ? (
+          <img
+            src={profile}
+            alt="profile"
+            className="mr-2 inline size-10 shrink-0 object-fill"
+          />
+        ) : (
+          <PersonCircle className="mr-2 inline size-10 shrink-0" />
+        )}
+
         <div>
           <Link
             to={`/profile/@${username}`}
@@ -88,6 +97,7 @@ const PostContainer = ({
       <div>
         <p>{content}</p>
       </div>
+      {/* <div className="h-60 rounded-2xl bg-black"></div> */}
       <div>
         <div
           className={ctl(`

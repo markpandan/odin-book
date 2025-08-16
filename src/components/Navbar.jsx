@@ -52,7 +52,15 @@ const Navbar = ({ user = {} }) => {
             <Menu as="div" className={ctl(`relative mr-6 flex items-center`)}>
               <MenuButton as="button" className={"cursor-pointer"}>
                 <span className="sr-only">{user.username}</span>
-                <PersonCircle className="size-7" />
+                {user.profile_url ? (
+                  <img
+                    src={user.profile_url}
+                    alt="profile"
+                    className="size-8 object-fill"
+                  />
+                ) : (
+                  <PersonCircle className="size-8" />
+                )}
               </MenuButton>
               <MenuItems
                 modal={false}

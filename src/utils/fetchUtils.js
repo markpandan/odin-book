@@ -26,17 +26,6 @@ export const fetchPost = async (route, body, token) => {
   });
 };
 
-export const fetchPostFormData = async (route, formData, token) => {
-  return await fetch(`${HOST_NAME}/${route}`, {
-    method: "POST",
-    headers: {
-      Authorization: token || "",
-    },
-    body: formData,
-    mode: "cors",
-  });
-};
-
 export const fetchPut = async (route, body, token) => {
   return await fetch(`${HOST_NAME}/${route}`, {
     method: "PUT",
@@ -58,5 +47,27 @@ export const fetchDelete = async (route, body, token) => {
     },
     mode: "cors",
     body: body ? JSON.stringify(body) : "",
+  });
+};
+
+export const fetchPostFormData = async (route, formData, token) => {
+  return await fetch(`${HOST_NAME}/${route}`, {
+    method: "POST",
+    headers: {
+      Authorization: token || "",
+    },
+    body: formData,
+    mode: "cors",
+  });
+};
+
+export const fetchPutFormData = async (route, formData, token) => {
+  return await fetch(`${HOST_NAME}/${route}`, {
+    method: "PUT",
+    headers: {
+      Authorization: token || "",
+    },
+    body: formData,
+    mode: "cors",
   });
 };
