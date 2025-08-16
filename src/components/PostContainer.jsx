@@ -17,6 +17,7 @@ const PostContainer = ({
   username,
   profile,
   content,
+  image,
   likesCount,
   isLiked,
   commentsCount,
@@ -98,6 +99,13 @@ const PostContainer = ({
         <p>{content}</p>
       </div>
       {/* <div className="h-60 rounded-2xl bg-black"></div> */}
+      {image && (
+        <img
+          src={image.url}
+          alt="Post Image"
+          className="h-80 rounded-2xl bg-[var(--tertiary-color)]/50 object-contain"
+        />
+      )}
       <div>
         <div
           className={ctl(`

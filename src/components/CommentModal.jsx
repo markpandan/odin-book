@@ -79,9 +79,12 @@ const CommentModal = ({ post, onClose }) => {
             dark:border-b-1 dark:border-[var(--primary-color)]
           `)}
           user={`${post.user.firstname} ${post.user.lastname}`}
+          postId={post.id}
           content={post.content}
-          likesCount={post._count.Likes}
-          commentsCount={post._count.Comments}
+          image={post.images[0]}
+          likesCount={post._count.likes}
+          isLiked={post.liked}
+          commentsCount={post._count.comments}
         />
 
         <div className="flex flex-col gap-4">

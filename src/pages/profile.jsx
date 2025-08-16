@@ -172,6 +172,7 @@ const Profile = () => {
                 username={userData.username}
                 profile={userData.profile_url}
                 content={post.content}
+                image={post.images[0]}
                 likesCount={post._count.likes}
                 isLiked={post.liked}
                 commentsCount={post._count.comments}

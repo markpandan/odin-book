@@ -1,15 +1,14 @@
 import ctl from "@netlify/classnames-template-literals";
-import { ArrowLeft, Pencil, PersonCircle } from "react-bootstrap-icons";
+import { useEffect, useState } from "react";
+import { ArrowLeft, PersonCircle } from "react-bootstrap-icons";
 import { Link, Navigate } from "react-router-dom";
+import ButtonWithLoader from "../components/ButtonWithLoader";
 import InputField from "../components/InputField";
+import useAlert from "../hooks/useAlert";
 import useAuth from "../hooks/useAuth";
 import useForm from "../hooks/useForm";
-import { useEffect, useState } from "react";
 import { fetchPutFormData } from "../utils/fetchUtils";
-import useAlert from "../hooks/useAlert";
-import ButtonWithLoader from "../components/ButtonWithLoader";
-
-const imageMimeType = /image\/(png|jpg|jpeg)/i;
+import { imageMimeType } from "../utils/typeUtils";
 
 const Settings = () => {
   const { setAlert } = useAlert();
@@ -98,13 +97,13 @@ const Settings = () => {
             <img
               src={imageFileDataURL}
               alt="preview"
-              className="mx-auto mb-4 size-16 rounded-full bg-black object-cover"
+              className="mx-auto size-32 rounded-full bg-black object-cover"
             />
           ) : (
-            <PersonCircle className="mx-auto mb-4 size-16" />
+            <PersonCircle className="mx-auto size-32" />
           )}
           <label htmlFor="profile" className="text-center">
-            <p className="mb-4 line-clamp-1 text-xl italic">Default Profile</p>
+            <p className="mb-4 line-clamp-1">Profile</p>
             <p
               className={ctl(`
                 mx-auto w-max cursor-pointer rounded-2xl bg-[var(--accent-color)] px-4 py-1

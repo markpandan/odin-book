@@ -7,10 +7,15 @@ const useForm = (fields = {}) => {
     const name = e.target.name;
 
     let value;
-    if (e.target.type == "checkbox") {
-      value = e.target.checked;
-    } else {
-      value = e.target.value;
+    switch (e.target.type) {
+      case "checkbox":
+        value = e.target.checked;
+        break;
+      case "file":
+        value = e.target.files[0];
+        break;
+      default:
+        value = e.target.value;
     }
 
     setInputs((values) => ({ ...values, [name]: value }));
