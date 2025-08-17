@@ -1,7 +1,7 @@
 import ctl from "@netlify/classnames-template-literals";
 import { useEffect, useState } from "react";
 import { PersonCircle } from "react-bootstrap-icons";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import LoadingText from "../components/LoadingText";
 import PostList from "../components/PostList";
 import useAlert from "../hooks/useAlert";
@@ -85,7 +85,7 @@ const Profile = () => {
           <div
             className={ctl(`
               absolute bottom-[-40%] left-8 flex items-center justify-center rounded-full
-              bg-[var(--tertiary-color)]
+              bg-[var(--primary-color)]
             `)}
           >
             {userProfile.profile_url ? (
@@ -99,14 +99,15 @@ const Profile = () => {
             )}
           </div>
           {userProfile.id == currentUser.id ? (
-            <button
+            <Link
+              to="/settings"
               className={ctl(`
                 absolute right-5 bottom-[-30%] cursor-pointer rounded-2xl bg-[var(--accent-color)]
                 px-4 py-1
               `)}
             >
               Edit Profile
-            </button>
+            </Link>
           ) : userProfile.followed ? (
             <button
               disabled={followLoading}
@@ -150,21 +151,13 @@ const Profile = () => {
         </div>
         <div className="flex flex-col gap-4 px-4 pt-8">
           <div className="text-2xl">Posts</div>
-          {userProfile.posts && userProfile.posts.length == 0 && (
-            <div
-              className={ctl(`
-                flex h-20 items-center justify-center rounded-2xl bg-[var(--secondary-color)]
-              `)}
-            >
-              <p className="italic">This person hasn't made any posts yet</p>
-            </div>
-          )}
           {userProfile.id && userProfile._count.posts ? (
             <PostList userId={userProfile.id} relationTo={currentUser.id} />
           ) : (
             <div
               className={ctl(`
-                flex h-20 items-center justify-center rounded-2xl bg-[var(--secondary-color)]
+                flex h-20 items-center justify-center rounded-2xl bg-[var(--tertiary-color)]
+                not-dark:shadow-md
               `)}
             >
               <p className="italic">This person hasn't made any posts yet</p>

@@ -97,7 +97,7 @@ const CommentModal = ({ post, onClose }) => {
             <div className="flex h-20 items-center justify-center">
               <p
                 className={ctl(`
-                  rounded-2xl bg-[var(--tertiary-color)] px-4 py-2 italic
+                  rounded-2xl bg-[var(--primary-color)] px-4 py-2 italic
                   not-dark:shadow-md
                 `)}
               >
