@@ -1,7 +1,9 @@
 import ctl from "@netlify/classnames-template-literals";
 import PostList from "../components/PostList";
+import useAuth from "../hooks/useAuth";
 
 const Home = () => {
+  const { user } = useAuth();
   return (
     <>
       <div
@@ -9,7 +11,7 @@ const Home = () => {
           flex w-4/7 flex-col gap-4 overflow-y-auto border-x-1 border-[var(--highlight-color)] px-4
         `)}
       >
-        <PostList />
+        <PostList relationTo={user.id} />
       </div>
     </>
   );
