@@ -20,7 +20,7 @@ const CommentModal = ({ post, onClose }) => {
     loading: dataLoading,
     setLoading: setDataLoading,
   } = useGetData(`posts/${post.id}/comments`);
-  const { inputs, setInputs, handleChange } = useForm();
+  const { inputs, setInputs, handleChange } = useForm({});
 
   const [submitLoading, setSubmitLoading] = useState(false);
 

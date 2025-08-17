@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import AsideNavigation from "../components/AsideNavigation";
 import CommentModal from "../components/CommentModal";
-import Navbar from "../components/Navbar";
+import LeaderboardContainer from "../components/LeaderboardColumn";
 import useAuth from "../hooks/useAuth";
 
 const HomeRoot = () => {
@@ -26,7 +26,10 @@ const HomeRoot = () => {
           `)}
         >
           <AsideNavigation user={user} className={"h-min w-1/7 shrink-0"} />
-          <Outlet context={{ user, setCommentModal }} />
+          <Outlet context={{ user, setCommentModal }} className="" />
+          <div className="w-2/7">
+            <LeaderboardContainer />
+          </div>
         </div>
       </div>
     </>

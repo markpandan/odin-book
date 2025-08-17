@@ -192,7 +192,6 @@ const Profile = () => {
             ))}
         </div>
       </div>
-      <FollowedColumn width={"w-2/7"} />
     </>
   );
 };
