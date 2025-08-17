@@ -18,7 +18,7 @@ const CommentModal = ({ post, onClose }) => {
   const {
     data: commentData,
     loading: dataLoading,
-    setLoading: setDataLoading,
+    setRefresh,
   } = useGetData(`posts/${post.id}/comments`);
   const { inputs, setInputs, handleChange } = useForm({});
 
@@ -44,7 +44,7 @@ const CommentModal = ({ post, onClose }) => {
         status: "success",
         message: "Comment successfully submitted",
       });
-      setDataLoading(true);
+      setRefresh(true);
       setInputs({ comment: "" });
     }
   };

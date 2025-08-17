@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { fetchGet } from "../utils/fetchUtils";
 
 const useGetData = (route, token, options = {}) => {
-  const { authenticate, deps } = options;
+  const { authenticate } = options;
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [refresh, setRefresh] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -24,6 +25,7 @@ const useGetData = (route, token, options = {}) => {
         });
 
         const jsonData = await response.json();
+        setLoading(false);
 
         if (!response.ok) {
           setError(jsonData.message);
@@ -36,16 +38,16 @@ const useGetData = (route, token, options = {}) => {
           setError(`An error has occured. Error Code: ${error.name}`);
         }
       } finally {
-        setLoading(false);
+        setRefresh(false);
       }
     };
 
     fetchPosts();
 
     return () => abortController.abort();
-  }, [route, token, authenticate, loading]);
+  }, [route, token, authenticate, refresh]);
 
-  return { data, loading, setLoading, error, setError };
+  return { data, loading, setRefresh, error, setError };
 };
 
 export default useGetData;

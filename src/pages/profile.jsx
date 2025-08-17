@@ -19,7 +19,7 @@ const Profile = () => {
   const {
     data: userProfile,
     loading: userLoading,
-    setLoading: setUserLoading,
+    setRefresh,
     error,
   } = useGetData(`users/${username.slice(1)}?relationTo=${currentUser.id}`);
 
@@ -64,7 +64,7 @@ const Profile = () => {
     if (!response.ok) setAlert({ status: "error", message: data.message });
     else {
       setAlert({ status: "success", message: data.message });
-      setUserLoading(true);
+      setRefresh(true);
     }
   };
 
