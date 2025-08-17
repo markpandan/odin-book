@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { fetchGet } from "../utils/fetchUtils";
 
 const useGetData = (route, token, options = {}) => {
-  const { authenticate } = options;
+  const { authenticate, deps } = options;
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
