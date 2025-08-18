@@ -12,13 +12,13 @@ const HomeRoot = () => {
 
   return (
     <>
-      <div className="top-20 h-full">
-        {commentModal.open && (
-          <CommentModal
-            post={commentModal.post}
-            onClose={() => setCommentModal({ open: false, post: "" })}
-          />
-        )}
+      {commentModal.open && (
+        <CommentModal
+          post={commentModal.post}
+          onClose={() => setCommentModal({ open: false, post: "" })}
+        />
+      )}
+      <div className="">
         <div
           className={ctl(`
             relative container mx-auto flex h-[inherit] max-w-7xl

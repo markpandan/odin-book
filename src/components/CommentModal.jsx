@@ -11,6 +11,7 @@ import ButtonWithLoader from "./ButtonWithLoader";
 import CommentItem from "./CommentItem";
 import LoadingText from "./LoadingText";
 import PostContainer from "./PostContainer";
+import useScrollLock from "../hooks/useScrollLock";
 
 const CommentModal = ({ post, onClose }) => {
   const { token, user } = useAuth();
@@ -21,6 +22,7 @@ const CommentModal = ({ post, onClose }) => {
     setRefresh,
   } = useGetData(`posts/${post.id}/comments`);
   const { inputs, setInputs, handleChange } = useForm({});
+  const { unlockScroll } = useScrollLock();
 
   const [submitLoading, setSubmitLoading] = useState(false);
 
@@ -52,7 +54,7 @@ const CommentModal = ({ post, onClose }) => {
   return (
     <div
       className={ctl(`
-        fixed z-5 h-full w-full pt-8
+        fixed top-15 z-5 h-full max-h-full w-full overflow-y-auto pt-8 pb-24
         not-dark:bg-white/75
         dark:bg-black/75
       `)}
@@ -66,7 +68,14 @@ const CommentModal = ({ post, onClose }) => {
       >
         <div className="flex items-center justify-between">
           <h1 className="text-2xl">Post</h1>
-          <button type="button" className="cursor-pointer" onClick={onClose}>
+          <button
+            type="button"
+            className="cursor-pointer"
+            onClick={() => {
+              unlockScroll();
+              onClose();
+            }}
+          >
             <span className="sr-only">Close</span>
             <XLg role="img" className="size-6" />
           </button>

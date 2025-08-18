@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { fetchDelete, fetchPost } from "../utils/fetchUtils";
 import useAlert from "../hooks/useAlert";
 import useAuth from "../hooks/useAuth";
+import useScrollLock from "../hooks/useScrollLock";
 
 const PostContainer = ({
   postId,
@@ -32,6 +33,7 @@ const PostContainer = ({
   const [like, setLike] = useState(isLiked);
   const [loading, setLoading] = useState(false);
   const [countLikes, setCountLikes] = useState(likesCount);
+  const { lockScroll } = useScrollLock();
 
   const handleLike = async () => {
     if (!token) {
@@ -150,7 +152,12 @@ const PostContainer = ({
               </>
             )}
           </button>
-          <button onClick={onComment}>
+          <button
+            onClick={() => {
+              lockScroll();
+              onComment();
+            }}
+          >
             <ChatLeft className="mr-3 inline size-4" />
             <p className="inline-block align-middle">Comment</p>
           </button>
