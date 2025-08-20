@@ -1,6 +1,6 @@
 import ctl from "@netlify/classnames-template-literals";
 import { useEffect, useState } from "react";
-import { ArrowLeft, PersonCircle } from "react-bootstrap-icons";
+import { ArrowLeft, PersonCircle, Pencil } from "react-bootstrap-icons";
 import { Link, Navigate } from "react-router-dom";
 import ButtonWithLoader from "../components/ButtonWithLoader";
 import InputField from "../components/InputField";
@@ -91,8 +91,19 @@ const Settings = () => {
         <p className="inline-block align-middle">Return to Home</p>
       </Link>
       <h1 className="mb-4 text-3xl font-semibold">Settings</h1>
-      <form onSubmit={handleSubmit} className="relative">
-        <div className="absolute right-0 w-40">
+      <form
+        onSubmit={handleSubmit}
+        className={ctl(`
+          relative flex flex-col items-center px-2
+          sm:block sm:px-0
+        `)}
+      >
+        <div
+          className={ctl(`
+            right-0 mb-8 w-40
+            sm:absolute
+          `)}
+        >
           {imageFileDataURL ? (
             <img
               src={imageFileDataURL}
@@ -105,11 +116,14 @@ const Settings = () => {
           <label htmlFor="profile" className="text-center">
             <p className="mb-4 line-clamp-1">Profile</p>
             <p
-              className={ctl(`
-                mx-auto w-max cursor-pointer rounded-2xl bg-[var(--accent-color)] px-4 py-1
-                text-center
-              `)}
+              className={ctl(
+                `
+                  mx-auto w-max cursor-pointer px-4 py-1 text-center text-[var(--highlight-color)]
+                  underline underline-offset-4
+                `
+              )}
             >
+              <Pencil className="inline mr-2" />
               Choose File
             </p>
             <input
@@ -122,7 +136,12 @@ const Settings = () => {
             />
           </label>
         </div>
-        <div className="mb-4 flex w-1/2 flex-col gap-4">
+        <div
+          className={ctl(`
+            mb-4 flex w-full flex-col gap-4
+            sm:w-1/2
+          `)}
+        >
           <InputField
             name={"username"}
             label={"Username:"}
@@ -159,7 +178,7 @@ const Settings = () => {
           className={ctl(
             `
               flex w-max cursor-pointer items-center gap-4 rounded-xl bg-[var(--accent-color)] px-4
-              py-1
+              py-3
             `
           )}
         >

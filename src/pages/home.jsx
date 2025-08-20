@@ -8,7 +8,9 @@ const Home = () => {
     <>
       <div
         className={ctl(`
-          flex w-4/7 flex-col gap-4 overflow-y-auto border-x-1 border-[var(--highlight-color)] px-4
+          flex grow flex-col gap-4 overflow-y-auto border-x-1 border-[var(--highlight-color)] px-4
+          sm:w-3/4
+          lg:w-4/7
         `)}
       >
         <PostList relationTo={user.id} />

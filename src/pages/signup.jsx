@@ -40,7 +40,11 @@ const Signup = () => {
   return (
     <div
       className={ctl(
-        `m-auto mt-8 w-1/3 rounded-2xl bg-[var(--secondary-color)] px-4 py-12 text-center`
+        `
+          m-auto mt-8 rounded-2xl bg-[var(--secondary-color)] px-4 py-12 text-center
+          sm:w-1/2
+          lg:w-1/3
+        `
       )}
     >
       <h2 className={ctl(`text-3xl font-bold`)}>Signup</h2>
@@ -63,7 +67,12 @@ const Signup = () => {
           onChange={handleChange}
           value={inputs.email}
         />
-        <div className="flex w-full gap-4">
+        <div
+          className={`
+            flex w-full flex-col gap-4
+            xs:flex-row
+          `}
+        >
           <InputField
             name={"firstname"}
             label={"First Name:"}

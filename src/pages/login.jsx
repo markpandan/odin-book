@@ -39,7 +39,11 @@ const Login = () => {
   return (
     <div
       className={ctl(
-        `m-auto mt-8 w-1/3 rounded-2xl bg-[var(--secondary-color)] p-4 text-center`
+        `
+          m-auto mt-8 rounded-2xl bg-[var(--secondary-color)] p-4 text-center
+          sm:w-1/2
+          lg:w-1/3
+        `
       )}
     >
       <h2 className={ctl(`mt-8 text-3xl font-bold`)}>Login</h2>

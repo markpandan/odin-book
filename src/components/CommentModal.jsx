@@ -54,7 +54,7 @@ const CommentModal = ({ post, onClose }) => {
   return (
     <div
       className={ctl(`
-        fixed top-15 z-5 h-full max-h-full w-full overflow-y-auto pt-8 pb-24
+        fixed top-15 z-5 h-full max-h-full w-full overflow-y-auto px-4 pt-8 pb-24
         not-dark:bg-white/75
         dark:bg-black/75
       `)}

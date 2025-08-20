@@ -16,6 +16,9 @@
       transform: translateY(calc(var(--spacing) * 20));
     }
   }
+
+  --breakpoint-xs: 23rem; /* 360px */
+  --breakpoint-lg: 75rem; /* 1200px */
 }
 
 :root {

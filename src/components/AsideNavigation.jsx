@@ -47,7 +47,8 @@ const AsideNavigation = ({ user, className }) => {
       <ul
         className={ctl(`
           flex flex-col gap-4
-          *:w-full *:cursor-pointer *:rounded-2xl *:text-xl
+          *:w-full *:cursor-pointer *:rounded-2xl *:text-base
+          md:*:text-xl
         `)}
       >
         {navigations.map((value) => {

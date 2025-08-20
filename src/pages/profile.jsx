@@ -30,7 +30,11 @@ const Profile = () => {
   }, [setAlert, error]);
 
   const parentClassValues = ctl(
-    "w-4/7 border-x-1 border-[var(--highlight-color)] px-0"
+    `
+      min-h-full grow border-x-1 border-[var(--highlight-color)] px-0
+      sm:w-3/4
+      lg:w-4/7
+    `
   );
 
   const handleFollow = async (action) => {
