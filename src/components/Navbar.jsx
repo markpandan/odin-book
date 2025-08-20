@@ -154,9 +154,11 @@ const Navbar = ({ user = {} }) => {
         transition
         className={ctl(
           `
-            fixed h-full w-1/2 origin-left translate-x-0 border-t-1 border-[var(--highlight-color)]
-            bg-[var(--tertiary-color)] px-2 py-4 transition duration-200 ease-out
+            fixed z-5 h-full w-1/2 origin-left translate-x-0 bg-[var(--tertiary-color)] px-2 py-4
+            transition duration-150 ease-out
+            not-dark:shadow-md
             data-closed:-translate-x-6 data-closed:opacity-0
+            dark:border-t-1 dark:border-[var(--highlight-color)]
           `
         )}
       >
