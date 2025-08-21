@@ -6,12 +6,12 @@ import useAlert from "../hooks/useAlert";
 import useAuth from "../hooks/useAuth";
 import useForm from "../hooks/useForm";
 import useGetData from "../hooks/useGetData";
+import useScrollLock from "../hooks/useScrollLock";
 import { fetchPost } from "../utils/fetchUtils";
 import ButtonWithLoader from "./ButtonWithLoader";
 import CommentItem from "./CommentItem";
 import LoadingText from "./LoadingText";
 import PostItem from "./PostItem";
-import useScrollLock from "../hooks/useScrollLock";
 
 const CommentModal = ({ post, onClose }) => {
   const { token, user } = useAuth();
@@ -22,9 +22,10 @@ const CommentModal = ({ post, onClose }) => {
     setRefresh,
   } = useGetData(`posts/${post.id}/comments`);
   const { inputs, setInputs, handleChange } = useForm({});
-  const { unlockScroll } = useScrollLock();
 
   const [submitLoading, setSubmitLoading] = useState(false);
+
+  useScrollLock();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -72,7 +73,6 @@ const CommentModal = ({ post, onClose }) => {
             type="button"
             className="cursor-pointer"
             onClick={() => {
-              unlockScroll();
               onClose();
             }}
           >

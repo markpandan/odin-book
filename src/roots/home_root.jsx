@@ -3,15 +3,20 @@ import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import AsideNavigation from "../components/AsideNavigation";
 import CommentModal from "../components/CommentModal";
+import CreateNewChatModal from "../components/CreateNewChatModal";
 import LeaderboardContainer from "../components/LeaderboardColumn";
 import useAuth from "../hooks/useAuth";
 
 const HomeRoot = () => {
   const [commentModal, setCommentModal] = useState({ open: false, post: "" });
+  const [isCreateNewChatOpen, setIsCreateNewChatOpen] = useState(false);
   const { user } = useAuth();
 
   return (
     <>
+      {isCreateNewChatOpen && (
+        <CreateNewChatModal onClose={() => setIsCreateNewChatOpen(false)} />
+      )}
       {commentModal.open && (
         <CommentModal
           post={commentModal.post}
@@ -33,7 +38,7 @@ const HomeRoot = () => {
               lg:w-1/7
             `)}
           />
-          <Outlet context={{ user, setCommentModal }} />
+          <Outlet context={{ user, setCommentModal, setIsCreateNewChatOpen }} />
           <div
             className={ctl(`
               sticky top-[4.05rem] right-0 hidden h-min

@@ -9,7 +9,6 @@ import {
 import { Link } from "react-router-dom";
 import useAlert from "../hooks/useAlert";
 import useAuth from "../hooks/useAuth";
-import useScrollLock from "../hooks/useScrollLock";
 import { getRelativeDayNow } from "../utils/dateUtils";
 import { fetchDelete, fetchPost } from "../utils/fetchUtils";
 
@@ -35,8 +34,6 @@ const PostItem = ({
   const [like, setLike] = useState(isLiked);
   const [loading, setLoading] = useState(false);
   const [countLikes, setCountLikes] = useState(likesCount);
-  const { lockScroll } = useScrollLock();
-
   const relativeDate = useMemo(() => getRelativeDayNow(date), [date]);
 
   const handleLike = async () => {
@@ -158,7 +155,6 @@ const PostItem = ({
           </button>
           <button
             onClick={() => {
-              lockScroll();
               onComment();
             }}
           >

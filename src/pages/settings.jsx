@@ -1,6 +1,6 @@
 import ctl from "@netlify/classnames-template-literals";
 import { useEffect, useState } from "react";
-import { ArrowLeft, PersonCircle, Pencil } from "react-bootstrap-icons";
+import { ArrowLeft, Pencil, PersonCircle } from "react-bootstrap-icons";
 import { Link, Navigate } from "react-router-dom";
 import ButtonWithLoader from "../components/ButtonWithLoader";
 import InputField from "../components/InputField";
@@ -45,10 +45,6 @@ const Settings = () => {
     };
   }, [imageFile]);
 
-  if (!token) {
-    return <Navigate to="/login" />;
-  }
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -83,6 +79,10 @@ const Settings = () => {
 
     setImageFile(file);
   };
+
+  if (!token) {
+    return <Navigate to="/login" />;
+  }
 
   return (
     <>
@@ -123,7 +123,7 @@ const Settings = () => {
                 `
               )}
             >
-              <Pencil className="inline mr-2" />
+              <Pencil className="mr-2 inline" />
               Choose File
             </p>
             <input

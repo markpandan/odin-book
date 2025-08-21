@@ -1,9 +1,9 @@
-const HOST_NAME = import.meta.env.VITE_API_URL;
+const HOST_URL = import.meta.env.VITE_API_URL;
 
 export const fetchGet = async (route, options) => {
   const { token, signal } = options;
 
-  return await fetch(`${HOST_NAME}/${route}`, {
+  return await fetch(`${HOST_URL}/${route}`, {
     method: "GET",
     headers: {
       Authorization: token || "",
@@ -15,7 +15,7 @@ export const fetchGet = async (route, options) => {
 };
 
 export const fetchPost = async (route, body, token) => {
-  return await fetch(`${HOST_NAME}/${route}`, {
+  return await fetch(`${HOST_URL}/${route}`, {
     method: "POST",
     headers: {
       Authorization: token || "",
@@ -27,7 +27,7 @@ export const fetchPost = async (route, body, token) => {
 };
 
 export const fetchPut = async (route, body, token) => {
-  return await fetch(`${HOST_NAME}/${route}`, {
+  return await fetch(`${HOST_URL}/${route}`, {
     method: "PUT",
     headers: {
       Authorization: token || "",
@@ -39,7 +39,7 @@ export const fetchPut = async (route, body, token) => {
 };
 
 export const fetchDelete = async (route, body, token) => {
-  return await fetch(`${HOST_NAME}/${route}`, {
+  return await fetch(`${HOST_URL}/${route}`, {
     method: "DELETE",
     headers: {
       Authorization: token || "",
@@ -51,7 +51,7 @@ export const fetchDelete = async (route, body, token) => {
 };
 
 export const fetchPostFormData = async (route, formData, token) => {
-  return await fetch(`${HOST_NAME}/${route}`, {
+  return await fetch(`${HOST_URL}/${route}`, {
     method: "POST",
     headers: {
       Authorization: token || "",
@@ -62,7 +62,7 @@ export const fetchPostFormData = async (route, formData, token) => {
 };
 
 export const fetchPutFormData = async (route, formData, token) => {
-  return await fetch(`${HOST_NAME}/${route}`, {
+  return await fetch(`${HOST_URL}/${route}`, {
     method: "PUT",
     headers: {
       Authorization: token || "",
