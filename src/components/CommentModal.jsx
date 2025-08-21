@@ -10,7 +10,7 @@ import { fetchPost } from "../utils/fetchUtils";
 import ButtonWithLoader from "./ButtonWithLoader";
 import CommentItem from "./CommentItem";
 import LoadingText from "./LoadingText";
-import PostContainer from "./PostContainer";
+import PostItem from "./PostItem";
 import useScrollLock from "../hooks/useScrollLock";
 
 const CommentModal = ({ post, onClose }) => {
@@ -81,7 +81,7 @@ const CommentModal = ({ post, onClose }) => {
           </button>
         </div>
         <hr className="border-[var(--highlight-color)]" />
-        <PostContainer
+        <PostItem
           className={ctl(`
             flex flex-col gap-6 bg-[var(--secondary-color)] p-4
             not-dark:shadow-md

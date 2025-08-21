@@ -22,7 +22,7 @@ const HomeRoot = () => {
         <div
           className={ctl(`
             relative container mx-auto flex h-[inherit] max-w-7xl
-            *:py-7 *:not-nth-[2]:px-2 *:sm:not-nth-[2]:px-4
+            *:pt-7 *:not-nth-[2]:px-2 *:sm:not-nth-[2]:px-4
           `)}
         >
           <AsideNavigation

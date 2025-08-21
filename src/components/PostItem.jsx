@@ -1,19 +1,19 @@
 import ctl from "@netlify/classnames-template-literals";
-import { useCallback, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import {
-  PersonCircle,
+  ChatLeft,
   HandThumbsUp,
   HandThumbsUpFill,
-  ChatLeft,
+  PersonCircle,
 } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
-import { fetchDelete, fetchPost } from "../utils/fetchUtils";
 import useAlert from "../hooks/useAlert";
 import useAuth from "../hooks/useAuth";
 import useScrollLock from "../hooks/useScrollLock";
 import { getRelativeDayNow } from "../utils/dateUtils";
+import { fetchDelete, fetchPost } from "../utils/fetchUtils";
 
-const PostContainer = ({
+const PostItem = ({
   postId,
   user,
   username,
@@ -171,4 +171,4 @@ const PostContainer = ({
   );
 };
 
-export default PostContainer;
+export default PostItem;

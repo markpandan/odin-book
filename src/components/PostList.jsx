@@ -3,7 +3,7 @@ import { useOutletContext } from "react-router-dom";
 import useAlert from "../hooks/useAlert";
 import { fetchGet } from "../utils/fetchUtils";
 import LoadingText from "./LoadingText";
-import PostContainer from "./PostContainer";
+import PostItem from "./PostItem";
 
 const POSTS_LENGTH = 5;
 
@@ -92,7 +92,7 @@ const PostList = ({ userId, relationTo }) => {
   return (
     <>
       {postData.map((post) => (
-        <PostContainer
+        <PostItem
           key={post.id}
           postId={post.id}
           user={`${post.user.firstname} ${post.user.lastname}`}
