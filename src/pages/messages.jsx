@@ -4,8 +4,8 @@ const Messages = () => {
   return (
     <div
       className={ctl(`
-        flex w-full items-center justify-center border-x-1 border-[var(--highlight-color)]
-        sm:w-4/7
+        flex w-full items-center justify-center
+        sm:w-4/7 sm:border-x-1 sm:border-[var(--highlight-color)]
       `)}
     >
       <div className="text-4xl">

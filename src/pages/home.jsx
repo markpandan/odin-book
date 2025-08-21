@@ -8,8 +8,8 @@ const Home = () => {
     <>
       <div
         className={ctl(`
-          flex grow flex-col gap-4 overflow-y-auto border-x-1 border-[var(--highlight-color)] px-4
-          sm:w-3/4
+          flex grow flex-col gap-4 overflow-y-auto px-4
+          sm:w-3/4 sm:border-x-1 sm:border-[var(--highlight-color)]
           lg:w-4/7
         `)}
       >

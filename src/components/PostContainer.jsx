@@ -1,5 +1,5 @@
 import ctl from "@netlify/classnames-template-literals";
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import {
   PersonCircle,
   HandThumbsUp,
@@ -11,11 +11,13 @@ import { fetchDelete, fetchPost } from "../utils/fetchUtils";
 import useAlert from "../hooks/useAlert";
 import useAuth from "../hooks/useAuth";
 import useScrollLock from "../hooks/useScrollLock";
+import { getRelativeDayNow } from "../utils/dateUtils";
 
 const PostContainer = ({
   postId,
   user,
   username,
+  date,
   profile,
   content,
   image,
@@ -34,6 +36,8 @@ const PostContainer = ({
   const [loading, setLoading] = useState(false);
   const [countLikes, setCountLikes] = useState(likesCount);
   const { lockScroll } = useScrollLock();
+
+  const relativeDate = useMemo(() => getRelativeDayNow(date), [date]);
 
   const handleLike = async () => {
     if (!token) {
@@ -94,7 +98,7 @@ const PostContainer = ({
           >
             {user}
           </Link>
-          <p className="text-xs opacity-75">2h ago</p>
+          <p className="text-xs opacity-75">{relativeDate}d ago</p>
         </div>
       </div>
       <div>

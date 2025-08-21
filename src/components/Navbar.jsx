@@ -1,25 +1,25 @@
+import {
+  Disclosure,
+  DisclosureButton,
+  DisclosurePanel,
+  Menu,
+  MenuButton,
+  MenuHeading,
+  MenuItem,
+  MenuItems,
+  MenuSection,
+} from "@headlessui/react";
 import ctl from "@netlify/classnames-template-literals";
 import {
-  Moon,
-  PersonCircle,
-  Person,
-  Sun,
   List,
+  Moon,
+  Person,
+  PersonCircle,
+  Sun,
   XLg,
 } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 import useColorScheme from "../hooks/useColorScheme";
-import {
-  Menu,
-  MenuButton,
-  MenuItems,
-  MenuItem,
-  MenuSection,
-  MenuHeading,
-  Disclosure,
-  DisclosureButton,
-  DisclosurePanel,
-} from "@headlessui/react";
 import AsideNavigation from "./AsideNavigation";
 
 const Navbar = ({ user = {} }) => {

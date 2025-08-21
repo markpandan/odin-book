@@ -31,8 +31,8 @@ const Profile = () => {
 
   const parentClassValues = ctl(
     `
-      min-h-full grow border-x-1 border-[var(--highlight-color)] px-0
-      sm:w-3/4
+      min-h-full grow px-0
+      sm:w-3/4 sm:border-x-1 sm:border-[var(--highlight-color)]
       lg:w-4/7
     `
   );
@@ -43,6 +43,7 @@ const Profile = () => {
         status: "error",
         message: "You must have an accounut to follow a user",
       });
+      return;
     }
 
     setFollowLoading(true);

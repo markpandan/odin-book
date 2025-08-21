@@ -57,9 +57,12 @@ const PostList = ({ userId, relationTo }) => {
         if (!response.ok) {
           setAlert({ status: "error", message: data.message });
         } else {
-          if (data.output.length == 0) setEndFetch(true);
-          setPostData([...postData, ...data.output]);
-          setStartIndex(startIndex + POSTS_LENGTH);
+          if (data.output.length == 0) {
+            setEndFetch(true);
+          } else {
+            setPostData([...postData, ...data.output]);
+            setStartIndex(startIndex + POSTS_LENGTH);
+          }
         }
       } catch (error) {
         if (!error.name === "AbortError") {
@@ -94,6 +97,7 @@ const PostList = ({ userId, relationTo }) => {
           postId={post.id}
           user={`${post.user.firstname} ${post.user.lastname}`}
           username={post.user.username}
+          date={post.createdAt}
           profile={post.user.profile_url}
           content={post.content}
           image={post.images[0]}
