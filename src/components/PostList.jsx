@@ -59,10 +59,10 @@ const PostList = ({ userId, relationTo }) => {
         } else {
           if (data.output.length < POSTS_LENGTH) {
             setEndFetch(true);
-          } else {
-            setPostData([...postData, ...data.output]);
             setStartIndex(startIndex + POSTS_LENGTH);
           }
+
+          setPostData([...postData, ...data.output]);
         }
       } catch (error) {
         if (!error.name === "AbortError") {
@@ -88,6 +88,8 @@ const PostList = ({ userId, relationTo }) => {
     relationTo,
     userId,
   ]);
+
+  console.log(postData);
 
   return (
     <>
