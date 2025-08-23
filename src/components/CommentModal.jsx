@@ -121,6 +121,7 @@ const CommentModal = ({ post, onClose }) => {
             <CommentItem
               key={index}
               user={`${comment.user.firstname} ${comment.user.lastname}`}
+              profile={comment.user.profile_url}
             >
               {comment.content}
             </CommentItem>

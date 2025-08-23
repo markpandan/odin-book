@@ -57,7 +57,7 @@ const PostList = ({ userId, relationTo }) => {
         if (!response.ok) {
           setAlert({ status: "error", message: data.message });
         } else {
-          if (data.output.length == 0) {
+          if (data.output.length < POSTS_LENGTH) {
             setEndFetch(true);
           } else {
             setPostData([...postData, ...data.output]);
