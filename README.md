@@ -13,6 +13,7 @@ You can access the website here: https://markpandan-postly.vercel.app/
 This is a social media app that features the following key aspects:
 
 - **Account management** - Allows to sign up, and log in which utilizes [JWT (JSON Web Token)](https://www.jwt.io/introduction) as authentication. It can also allow you personalize your profile!
+- **Realtime Messaging** - Users can be able to chat with their fellow friends with seamless experience, and instantly. All thanks to [Socket.io](https://socket.io/)!
 - **Interact with users** - You can request a follow for them, and interact by sending a like or comment on their posts!
 - **Seamless design** - The website was designed with Tailwind CSS, and it can also personlize the user's interest if they prefer dark or light mode.
 
