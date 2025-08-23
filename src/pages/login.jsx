@@ -56,7 +56,7 @@ const Login = () => {
           name={"username"}
           label={"Username:"}
           onChange={handleChange}
-          value={inputs.username}
+          value={inputs.username || ""}
         />
 
         <InputField
@@ -64,7 +64,7 @@ const Login = () => {
           name={"password"}
           label={"Password:"}
           onChange={handleChange}
-          value={inputs.password}
+          value={inputs.password || ""}
         />
         <ButtonWithLoader
           type="submit"

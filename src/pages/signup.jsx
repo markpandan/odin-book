@@ -57,7 +57,7 @@ const Signup = () => {
           name={"username"}
           label={"Username:"}
           onChange={handleChange}
-          value={inputs.username}
+          value={inputs.username || ""}
         />
 
         <InputField
@@ -65,7 +65,7 @@ const Signup = () => {
           name={"email"}
           label={"Email:"}
           onChange={handleChange}
-          value={inputs.email}
+          value={inputs.email || ""}
         />
         <div
           className={`
@@ -77,13 +77,13 @@ const Signup = () => {
             name={"firstname"}
             label={"First Name:"}
             onChange={handleChange}
-            value={inputs.firstname}
+            value={inputs.firstname || ""}
           />
           <InputField
             name={"lastname"}
             label={"Last Name:"}
             onChange={handleChange}
-            value={inputs.lastname}
+            value={inputs.lastname || ""}
           />
         </div>
         <InputField
@@ -91,7 +91,7 @@ const Signup = () => {
           name={"password"}
           label={"Password:"}
           onChange={handleChange}
-          value={inputs.password}
+          value={inputs.password || ""}
         />
         <ButtonWithLoader
           type="submit"

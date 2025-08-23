@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
-import useAlert from "../hooks/useAlert";
 import AlertPopup from "../components/AlertPopup";
 import Navbar from "../components/Navbar";
+import useAlert from "../hooks/useAlert";
 import useAuth from "../hooks/useAuth";
 
 const AlertRoot = () => {

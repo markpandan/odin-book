@@ -1,14 +1,39 @@
 import ctl from "@netlify/classnames-template-literals";
+import { useState } from "react";
 import { XLg } from "react-bootstrap-icons";
+import useAlert from "../hooks/useAlert";
+import useAuth from "../hooks/useAuth";
+import useFormSubmit from "../hooks/useFormSubmit";
+import useGetData from "../hooks/useGetData";
 import useScrollLock from "../hooks/useScrollLock";
+import LoadingText from "./LoadingText";
 
-const CreateNewChatModal = ({ onClose }) => {
+const CreateNewChatModal = ({ onNew, onClose }) => {
+  const { token } = useAuth();
+  const { setAlert } = useAlert();
+  const { data: userData, loading } = useGetData("chats/outside", token);
+  const [selectedUser, setSelectedUser] = useState("");
+
   useScrollLock();
+
+  const { loading: addLoading, handleSubmit } = useFormSubmit(
+    "chats/add",
+    { ids: [selectedUser] },
+    token
+  )
+    .success(() => {
+      setAlert({});
+      onNew();
+      onClose();
+    })
+    .fail((message) => {
+      setAlert({ status: "error", message });
+    });
 
   return (
     <div
       className={ctl(`
-        fixed top-15 z-5 h-full max-h-full w-full overflow-y-auto px-4 pt-8 pb-24
+        fixed top-15 left-0 z-5 h-full max-h-full w-full overflow-y-auto px-4 pt-8 pb-24
         not-dark:bg-white/75
         dark:bg-black/75
       `)}
@@ -34,9 +59,50 @@ const CreateNewChatModal = ({ onClose }) => {
           </button>
         </div>
         <hr className="border-[var(--highlight-color)]" />
-        <div>
-          <h2 className="mb-4 text-lg">Available Users</h2>
-          <div className="h-100 overflow-y-auto rounded-lg bg-[var(--tertiary-color)]"></div>
+        <div className="flex flex-col gap-4">
+          <h2 className="text-start text-lg">Select A User</h2>
+          <div className="relative flex h-100 flex-col gap-4 overflow-y-auto">
+            {addLoading && (
+              <div
+                className={ctl(`
+                  absolute flex h-full w-full items-center justify-center rounded-lg bg-black/50
+                `)}
+              >
+                <LoadingText text="Adding New User" />
+              </div>
+            )}
+            {loading && <LoadingText />}
+            {userData.map((user) => (
+              <button
+                key={user.id}
+                onClick={() => setSelectedUser(user.id)}
+                className={ctl(
+                  `
+                    cursor-pointer rounded-lg
+                    ${
+                      selectedUser == user.id
+                        ? `bg-[var(--accent-color)]`
+                        : `bg-[var(--tertiary-color)]`
+                    }
+                    p-4 text-start
+                  `
+                )}
+              >
+                {`${user.firstname} ${user.lastname}`}
+              </button>
+            ))}
+          </div>
+          <button
+            disabled={!selectedUser}
+            onClick={handleSubmit}
+            className={ctl(`
+              w-max self-center rounded-lg bg-[var(--accent-color)] px-4 py-2
+              not-disabled:cursor-pointer
+              disabled:opacity-50
+            `)}
+          >
+            Add User
+          </button>
         </div>
       </div>
     </div>

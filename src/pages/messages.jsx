@@ -1,23 +1,34 @@
 import ctl from "@netlify/classnames-template-literals";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { PersonCircle } from "react-bootstrap-icons";
-import { Navigate, useOutletContext } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import ChatWindow from "../components/ChatWindow";
-import useAuth from "../hooks/useAuth";
 import CreateNewChatModal from "../components/CreateNewChatModal";
+import LoadingText from "../components/LoadingText";
+import useAuth from "../hooks/useAuth";
+import useGetData from "../hooks/useGetData";
+import { socket } from "../socket";
 
 const Messages = () => {
-  const { setIsCreateNewChatOpen } = useOutletContext();
   const { token } = useAuth();
   const [selectedIndex, setSelectedIndex] = useState(null);
-  const [selectedUser, setSelectedUser] = useState("No Selected User");
+  const [selectedUser, setSelectedUser] = useState({});
 
-  const users = [
-    "John Doe Michael",
-    "Michael Jordan",
-    "James Smith",
-    "Alice McCoy",
-  ];
+  const [isCreateNewChatOpen, setIsCreateNewChatOpen] = useState(false);
+
+  const { data, loading, setRefresh } = useGetData("chats/list", token);
+
+  useEffect(() => {
+    socket.connect();
+
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
+
+  const handleRoomChange = useCallback((from, to) => {
+    socket.emit("switch room", from, to);
+  }, []);
 
   if (!token) {
     return <Navigate to="/" />;
@@ -33,6 +44,14 @@ const Messages = () => {
         `
       )}
     >
+      {isCreateNewChatOpen && (
+        <CreateNewChatModal
+          onNew={() => {
+            setRefresh(true);
+          }}
+          onClose={() => setIsCreateNewChatOpen(false)}
+        />
+      )}
       <div
         className={ctl(`
           border-b-1 border-[var(--highlight-color)]
@@ -48,27 +67,44 @@ const Messages = () => {
             + Create New
           </button>
         </div>
-        <div className="flex flex-nowrap gap-2 overflow-x-auto py-4">
-          {users.map((user, index) => (
-            <button
-              key={index}
-              onClick={() => {
-                setSelectedIndex(index);
-                setSelectedUser(user);
-              }}
-              className={ctl(`
-                h-30 w-22 shrink-0 cursor-pointer rounded-2xl
-                ${selectedIndex == index ? "bg-[var(--accent-color)]" : ""}
-                p-2 text-center
-              `)}
-            >
-              <PersonCircle className="mb-4 inline size-12" />
-              <p className="line-clamp-2">{user}</p>
-            </button>
-          ))}
+        <div className="relative flex flex-nowrap gap-2 overflow-x-auto py-4">
+          {loading && <LoadingText />}
+          {data.map((chat) => {
+            const currentChatUser = chat.users[0];
+            const fullname = `${currentChatUser.firstname} ${currentChatUser.lastname}`;
+
+            return (
+              <button
+                key={currentChatUser.id}
+                onClick={() => {
+                  handleRoomChange(selectedUser.chatId, chat.id);
+                  setSelectedIndex(currentChatUser.id);
+                  setSelectedUser({ fullname, chatId: chat.id });
+                }}
+                className={ctl(`
+                  h-30 w-22 shrink-0 cursor-pointer rounded-2xl
+                  ${
+                    selectedIndex == currentChatUser.id
+                      ? "bg-[var(--accent-color)]"
+                      : ""
+                  }
+                  p-2 text-center
+                `)}
+              >
+                <PersonCircle className="mb-4 inline size-12" />
+                <p className="line-clamp-2">{fullname}</p>
+              </button>
+            );
+          })}
         </div>
       </div>
-      <ChatWindow selectedUser={selectedUser} />
+      {Object.keys(selectedUser).length !== 0 ? (
+        <ChatWindow selectedUser={selectedUser} />
+      ) : (
+        <div className="flex grow items-center justify-center">
+          <p className="text-2xl">Select A User To Continue</p>
+        </div>
+      )}
     </div>
   );
 };
