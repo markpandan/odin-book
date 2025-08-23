@@ -4,14 +4,13 @@ import { XLg } from "react-bootstrap-icons";
 import useAlert from "../hooks/useAlert";
 import useAuth from "../hooks/useAuth";
 import useFormSubmit from "../hooks/useFormSubmit";
-import useGetData from "../hooks/useGetData";
+import useInteractiveFetch from "../hooks/useInteractiveFetch";
 import useScrollLock from "../hooks/useScrollLock";
 import LoadingText from "./LoadingText";
 
 const CreateNewChatModal = ({ onNew, onClose }) => {
   const { token } = useAuth();
   const { setAlert } = useAlert();
-  const { data: userData, loading } = useGetData("chats/outside", token);
   const [selectedUser, setSelectedUser] = useState("");
 
   useScrollLock();
@@ -29,6 +28,13 @@ const CreateNewChatModal = ({ onNew, onClose }) => {
     .fail((message) => {
       setAlert({ status: "error", message });
     });
+
+  const {
+    data: userData,
+    loading: userLoading,
+    scrollRef,
+    endFetch,
+  } = useInteractiveFetch("chats/outside", { token });
 
   return (
     <div
@@ -61,7 +67,7 @@ const CreateNewChatModal = ({ onNew, onClose }) => {
         <hr className="border-[var(--highlight-color)]" />
         <div className="flex flex-col gap-4">
           <h2 className="text-start text-lg">Select A User</h2>
-          <div className="relative flex h-100 flex-col gap-4 overflow-y-auto">
+          <div className="relative flex h-100 flex-col gap-4 overflow-y-auto pr-5">
             {addLoading && (
               <div
                 className={ctl(`
@@ -71,7 +77,7 @@ const CreateNewChatModal = ({ onNew, onClose }) => {
                 <LoadingText text="Adding New User" />
               </div>
             )}
-            {loading && <LoadingText />}
+
             {userData.map((user) => (
               <button
                 key={user.id}
@@ -85,12 +91,20 @@ const CreateNewChatModal = ({ onNew, onClose }) => {
                         : `bg-[var(--tertiary-color)]`
                     }
                     p-4 text-start
+                    not-dark:shadow-md
                   `
                 )}
               >
                 {`${user.firstname} ${user.lastname}`}
               </button>
             ))}
+            <div
+              ref={scrollRef}
+              className="flex items-center justify-center bg-[var(--tertiary-color)]/50 py-10"
+            >
+              {userLoading && <LoadingText />}
+              {endFetch && <p>No more users</p>}
+            </div>
           </div>
           <button
             disabled={!selectedUser}

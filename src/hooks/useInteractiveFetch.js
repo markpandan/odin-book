@@ -2,8 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import { fetchGet } from "../utils/fetchUtils";
 import useAlert from "./useAlert";
 
-const useInteractiveFetch = (route, length, options = {}) => {
-  const { offset = 0, token } = options;
+const useInteractiveFetch = (route, options = {}) => {
+  // The offset variable realigns the specific start of data needs to be fetched in line with the messages added made from the socket
+  const { length = 5, offset = 0, token } = options;
   const { setAlert } = useAlert();
   const scrollRef = useRef(null);
   const [startIndex, setStartIndex] = useState(0 + offset);

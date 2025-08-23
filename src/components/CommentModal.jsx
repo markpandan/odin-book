@@ -88,6 +88,9 @@ const CommentModal = ({ post, onClose }) => {
             dark:border-b-1 dark:border-[var(--primary-color)]
           `)}
           user={`${post.user.firstname} ${post.user.lastname}`}
+          profile={post.user.profile_url}
+          username={post.user.username}
+          date={post.createdAt}
           postId={post.id}
           content={post.content}
           image={post.images[0]}
@@ -152,7 +155,16 @@ const CommentModal = ({ post, onClose }) => {
               <label htmlFor="comment" className="sr-only">
                 Comment
               </label>
-              <PersonCircle className="size-12 shrink-0" />
+              {user.profile_url ? (
+                <img
+                  src={user.profile_url}
+                  alt="profile"
+                  className="inline size-12 shrink-0 object-fill"
+                />
+              ) : (
+                <PersonCircle className="size-12 shrink-0" />
+              )}
+
               <textarea
                 name="comment"
                 id="comment"

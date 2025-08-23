@@ -1,6 +1,7 @@
 import ctl from "@netlify/classnames-template-literals";
 import { useEffect, useState } from "react";
 import { InfoCircle, PersonCircle } from "react-bootstrap-icons";
+import { Link } from "react-router-dom";
 import useAlert from "../hooks/useAlert";
 import useAuth from "../hooks/useAuth";
 import useForm from "../hooks/useForm";
@@ -10,20 +11,30 @@ import { socket } from "../socket";
 import LoadingText from "./LoadingText";
 
 const ChatWindow = ({ selectedUser }) => {
-  const { token } = useAuth();
+  const { token, user } = useAuth();
   const { setAlert } = useAlert();
   const [messages, setMessages] = useState([]);
   const { inputs, setInputs, handleChange } = useForm({
     message: "",
   });
 
-  // To realign the specific start of data needs to be fetch in line with the messages added from the socket
   const [offset, setOffset] = useState(0);
 
+  const chatBalloonStyle = {
+    user: ctl(
+      "max-w-8/10 self-end rounded-2xl bg-[var(--accent-color)] px-4 py-2 text-lg"
+    ),
+    other: ctl(
+      "max-w-8/10 self-start rounded-2xl bg-[var(--tertiary-color)] px-4 py-2 text-lg"
+    ),
+  };
+
   useEffect(() => {
-    const onChatMessage = (msg) => {
-      setMessages((messages) => [msg, ...messages]);
+    const onChatMessage = (msg, senderId, callback) => {
+      setMessages((messages) => [{ senderId, content: msg }, ...messages]);
       setOffset((offset) => offset + 1);
+
+      callback();
     };
 
     socket.on("chat message", onChatMessage);
@@ -37,13 +48,19 @@ const ChatWindow = ({ selectedUser }) => {
     loading: chatLoading,
     scrollRef,
     endFetch,
-  } = useInteractiveFetch(`chats/${selectedUser.chatId}`, 10, {
+  } = useInteractiveFetch(`chats/${selectedUser.chatId}`, {
+    length: 10,
     offset,
     token,
   });
 
   useEffect(() => {
-    setMessages([...chatData.map((chat) => chat.content)]);
+    setMessages([
+      ...chatData.map((chat) => ({
+        senderId: chat.senderId,
+        content: chat.content,
+      })),
+    ]);
   }, [chatData]);
 
   const { handleSubmit } = useFormSubmit(
@@ -67,14 +84,23 @@ const ChatWindow = ({ selectedUser }) => {
         `)}
       >
         <div>
-          <PersonCircle className="mr-4 inline size-8" />
+          {selectedUser.profile_url ? (
+            <img
+              src={selectedUser.profile_url}
+              alt="profile"
+              className="mr-4 inline size-8 object-fill"
+            />
+          ) : (
+            <PersonCircle className="mr-4 inline size-8" />
+          )}
+
           <h1 className="inline-block align-middle text-xl">
             {selectedUser.fullname}
           </h1>
         </div>
-        <button className="cursor-pointer">
+        <Link to={`/profile/@${selectedUser.username}`}>
           <InfoCircle className="size-6" />
-        </button>
+        </Link>
       </div>
       <div
         className={ctl(
@@ -84,9 +110,13 @@ const ChatWindow = ({ selectedUser }) => {
         {messages.map((message, index) => (
           <p
             key={index}
-            className="max-w-8/10 self-end rounded-2xl bg-[var(--accent-color)] px-4 py-2 text-lg"
+            className={
+              message.senderId == user.id
+                ? chatBalloonStyle["user"]
+                : chatBalloonStyle["other"]
+            }
           >
-            {message}
+            {message.content}
           </p>
         ))}
         <div ref={scrollRef} className="mb-2 self-stretch text-center">

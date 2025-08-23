@@ -79,7 +79,11 @@ const Messages = () => {
                 onClick={() => {
                   handleRoomChange(selectedUser.chatId, chat.id);
                   setSelectedIndex(currentChatUser.id);
-                  setSelectedUser({ fullname, chatId: chat.id });
+                  setSelectedUser({
+                    fullname,
+                    chatId: chat.id,
+                    ...currentChatUser,
+                  });
                 }}
                 className={ctl(`
                   h-30 w-22 shrink-0 cursor-pointer rounded-2xl
@@ -91,7 +95,16 @@ const Messages = () => {
                   p-2 text-center
                 `)}
               >
-                <PersonCircle className="mb-4 inline size-12" />
+                {currentChatUser.profile_url ? (
+                  <img
+                    src={currentChatUser.profile_url}
+                    alt="profile"
+                    className="mb-4 inline size-12 object-fill"
+                  />
+                ) : (
+                  <PersonCircle className="mb-4 inline size-12" />
+                )}
+
                 <p className="line-clamp-2">{fullname}</p>
               </button>
             );
