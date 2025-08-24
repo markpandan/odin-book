@@ -8,6 +8,7 @@ import {
   MenuItem,
   MenuItems,
   MenuSection,
+  CloseButton,
 } from "@headlessui/react";
 import ctl from "@netlify/classnames-template-literals";
 import {
@@ -17,6 +18,7 @@ import {
   PersonCircle,
   Sun,
   XLg,
+  BoxArrowLeft,
 } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 import useColorScheme from "../hooks/useColorScheme";
@@ -154,8 +156,8 @@ const Navbar = ({ user = {} }) => {
         transition
         className={ctl(
           `
-            fixed z-5 h-full w-1/2 origin-left translate-x-0 bg-[var(--tertiary-color)] px-2 py-4
-            transition duration-150 ease-out
+            fixed z-5 flex h-screen w-1/2 origin-left translate-x-0 flex-col justify-between
+            bg-[var(--tertiary-color)] px-2 py-4 pb-20 transition duration-150 ease-out
             not-dark:shadow-md
             data-closed:-translate-x-6 data-closed:opacity-0
             dark:border-t-1 dark:border-[var(--highlight-color)]
@@ -163,6 +165,33 @@ const Navbar = ({ user = {} }) => {
         )}
       >
         <AsideNavigation user={user} />
+        {Object.keys(user).length != 0 && (
+          <div>
+            <div className="line-clamp-1 border-b-1 border-[var(--highlight-color)] py-4">
+              {user.profile_url ? (
+                <img
+                  src={user.profile_url}
+                  alt="profile"
+                  className="mr-2 inline size-8 object-fill"
+                />
+              ) : (
+                <PersonCircle className="mr-2 inline size-8" />
+              )}
+              <p className="line-clamp-1 inline">{user.username}</p>
+            </div>
+            <CloseButton
+              as={Link}
+              to="/logout"
+              className={ctl(`
+                block py-4 text-base
+                md:text-xl
+              `)}
+            >
+              <BoxArrowLeft className="mr-2 inline size-6" />
+              <span>Logout</span>
+            </CloseButton>
+          </div>
+        )}
       </DisclosurePanel>
     </Disclosure>
   );

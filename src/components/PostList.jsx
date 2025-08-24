@@ -59,6 +59,7 @@ const PostList = ({ userId, relationTo }) => {
         } else {
           if (data.output.length < POSTS_LENGTH) {
             setEndFetch(true);
+          } else {
             setStartIndex(startIndex + POSTS_LENGTH);
           }
 
@@ -88,8 +89,6 @@ const PostList = ({ userId, relationTo }) => {
     relationTo,
     userId,
   ]);
-
-  console.log(postData);
 
   return (
     <>
