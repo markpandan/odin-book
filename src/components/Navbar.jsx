@@ -164,12 +164,14 @@ const Navbar = ({ user = {} }) => {
           `
         )}
       >
-        <AsideNavigation
-          user={user}
-          className={"mb-4 border-b-1 border-[var(--highlight-color)] pb-4"}
-        />
+        <AsideNavigation user={user} className={"pb-4"} />
         {Object.keys(user).length != 0 && (
-          <div className="*:p-2">
+          <div
+            className={ctl(`
+              border-t-1 border-[var(--highlight-color)] pt-4
+              *:p-2
+            `)}
+          >
             <div className="line-clamp-1">
               {user.profile_url ? (
                 <img
