@@ -31,18 +31,13 @@ const Navbar = ({ user = {} }) => {
     <Disclosure
       as={"nav"}
       className={ctl(`
-        sticky top-0 z-10
+        sticky top-0 z-10 bg-[var(--secondary-color)] transition-colors duration-300
         *:cursor-pointer
+        not-dark:shadow-md
+        dark:border-b-1 dark:border-[var(--highlight-color)]
       `)}
     >
-      <div
-        className={`
-          sticky top-0 z-10 flex w-full items-center justify-between bg-[var(--secondary-color)]
-          p-4 transition-colors duration-200
-          not-dark:shadow-md
-          dark:border-b-1 dark:border-[var(--highlight-color)]
-        `}
-      >
+      <div className="flex items-center justify-between p-4">
         <div className="flex gap-4">
           <DisclosureButton
             className={ctl(`
@@ -161,18 +156,21 @@ const Navbar = ({ user = {} }) => {
         transition
         className={ctl(
           `
-            absolute top-0 flex h-dvh w-1/2 origin-left translate-x-0 flex-col justify-between
-            bg-[var(--tertiary-color)] px-2 py-4 pt-20 transition duration-200 ease-out
+            fixed z-5 h-max w-full bg-[var(--tertiary-color)] px-2 py-4 opacity-100 transition
+            duration-200
             not-dark:shadow-md
-            data-closed:-translate-x-6 data-closed:opacity-0
+            data-closed:opacity-0
             dark:border-t-1 dark:border-[var(--highlight-color)]
           `
         )}
       >
-        <AsideNavigation user={user} />
+        <AsideNavigation
+          user={user}
+          className={"mb-4 border-b-1 border-[var(--highlight-color)] pb-4"}
+        />
         {Object.keys(user).length != 0 && (
-          <div>
-            <div className="line-clamp-1 border-b-1 border-[var(--highlight-color)] py-4">
+          <div className="*:p-2">
+            <div className="line-clamp-1">
               {user.profile_url ? (
                 <img
                   src={user.profile_url}
@@ -188,7 +186,7 @@ const Navbar = ({ user = {} }) => {
               as={Link}
               to="/logout"
               className={ctl(`
-                block py-4 text-base
+                block text-base
                 md:text-xl
               `)}
             >
