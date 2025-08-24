@@ -37,7 +37,7 @@ const Navbar = ({ user = {} }) => {
     >
       <div
         className={`
-          absolute top-0 z-10 flex w-full items-center justify-between bg-[var(--secondary-color)]
+          sticky top-0 z-10 flex w-full items-center justify-between bg-[var(--secondary-color)]
           p-4 transition-colors duration-200
           not-dark:shadow-md
           dark:border-b-1 dark:border-[var(--highlight-color)]
