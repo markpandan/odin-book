@@ -31,13 +31,18 @@ const Navbar = ({ user = {} }) => {
     <Disclosure
       as={"nav"}
       className={ctl(`
-        sticky top-0 z-10 bg-[var(--secondary-color)] transition-colors duration-300
+        sticky top-0 z-10
         *:cursor-pointer
-        not-dark:shadow-md
-        dark:border-b-1 dark:border-[var(--highlight-color)]
       `)}
     >
-      <div className="flex items-center justify-between p-4">
+      <div
+        className={`
+          absolute top-0 z-10 flex w-full items-center justify-between bg-[var(--secondary-color)]
+          p-4 transition-colors duration-200
+          not-dark:shadow-md
+          dark:border-b-1 dark:border-[var(--highlight-color)]
+        `}
+      >
         <div className="flex gap-4">
           <DisclosureButton
             className={ctl(`
@@ -156,8 +161,8 @@ const Navbar = ({ user = {} }) => {
         transition
         className={ctl(
           `
-            fixed z-5 flex h-dvh w-1/2 origin-left translate-x-0 flex-col justify-between
-            bg-[var(--tertiary-color)] px-2 py-4 pb-20 transition duration-150 ease-out
+            absolute top-0 flex h-dvh w-1/2 origin-left translate-x-0 flex-col justify-between
+            bg-[var(--tertiary-color)] px-2 py-4 pt-20 transition duration-200 ease-out
             not-dark:shadow-md
             data-closed:-translate-x-6 data-closed:opacity-0
             dark:border-t-1 dark:border-[var(--highlight-color)]
