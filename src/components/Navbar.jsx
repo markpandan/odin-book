@@ -164,11 +164,11 @@ const Navbar = ({ user = {} }) => {
           `
         )}
       >
-        <AsideNavigation user={user} className={"pb-4"} />
+        <AsideNavigation user={user} />
         {Object.keys(user).length != 0 && (
           <div
             className={ctl(`
-              border-t-1 border-[var(--highlight-color)] pt-4
+              mt-4 flex flex-col gap-4 border-t-1 border-[var(--highlight-color)] pt-2
               *:p-2
             `)}
           >
@@ -177,12 +177,14 @@ const Navbar = ({ user = {} }) => {
                 <img
                   src={user.profile_url}
                   alt="profile"
-                  className="mr-2 inline size-8 object-fill"
+                  className="mr-3 inline size-8 object-fill"
                 />
               ) : (
                 <PersonCircle className="mr-2 inline size-8" />
               )}
-              <p className="line-clamp-1 inline">{user.username}</p>
+              <p className="line-clamp-1 inline align-middle">
+                {user.username}
+              </p>
             </div>
             <CloseButton
               as={Link}
@@ -192,7 +194,7 @@ const Navbar = ({ user = {} }) => {
                 md:text-xl
               `)}
             >
-              <BoxArrowLeft className="mr-2 inline size-6" />
+              <BoxArrowLeft className="mr-4 inline size-6" />
               <span>Logout</span>
             </CloseButton>
           </div>
