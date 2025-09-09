@@ -160,7 +160,7 @@ const CommentModal = ({ post, onClose }) => {
                 <img
                   src={user.profile_url}
                   alt="profile"
-                  className="inline size-12 shrink-0 object-fill"
+                  className="inline size-12 shrink-0 rounded-full object-fill"
                 />
               ) : (
                 <PersonCircle className="size-12 shrink-0" />

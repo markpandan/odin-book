@@ -95,7 +95,7 @@ const Navbar = ({ user = {} }) => {
                     <img
                       src={user.profile_url}
                       alt="profile"
-                      className="size-8 object-fill"
+                      className="size-8 rounded-full object-fill"
                     />
                   ) : (
                     <PersonCircle className="size-8" />
@@ -177,7 +177,7 @@ const Navbar = ({ user = {} }) => {
                 <img
                   src={user.profile_url}
                   alt="profile"
-                  className="mr-3 inline size-8 object-fill"
+                  className="mr-3 inline size-8 rounded-full object-fill"
                 />
               ) : (
                 <PersonCircle className="mr-2 inline size-8" />

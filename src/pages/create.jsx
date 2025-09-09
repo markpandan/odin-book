@@ -77,7 +77,7 @@ const Create = () => {
           <img
             src={user.profile_url}
             alt="profile"
-            className="size-12 shrink-0"
+            className="size-12 shrink-0 rounded-full"
           />
         ) : (
           <PersonCircle className="size-12 shrink-0" />

@@ -7,7 +7,7 @@ const CommentItem = ({ user = "Unknown", profile, children }) => {
         <img
           src={profile}
           alt="profile"
-          className="mr-4 size-12 shrink-0 object-fill"
+          className="mr-4 size-12 shrink-0 rounded-full object-fill"
         />
       ) : (
         <PersonCircle className="mr-4 size-12 shrink-0" />

@@ -97,7 +97,7 @@ const Profile = () => {
               <img
                 src={userProfile.profile_url}
                 alt="profile"
-                className="size-25 object-fill"
+                className="size-25 rounded-full object-fill"
               />
             ) : (
               <PersonCircle className="size-25" />
